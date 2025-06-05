@@ -16,6 +16,7 @@ import Combine
 ///
 /// For SwiftUI previews and Simulator, the app uses `PreviewCameraModel` instead.
 ///
+@MainActor
 @Observable
 final class CameraModel: Camera {
     

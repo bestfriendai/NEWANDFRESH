@@ -11,15 +11,15 @@ import AVKit
 
 @MainActor
 struct CameraView<CameraModel: Camera>: PlatformView {
-    
+
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
+
     @State var camera: CameraModel
-    
+
     // The direction a person swipes on the camera preview or mode selector.
     @State var swipeDirection = SwipeDirection.left
-    
+
     var body: some View {
         ZStack {
             // A container view that manages the placement of the preview.
@@ -27,17 +27,23 @@ struct CameraView<CameraModel: Camera>: PlatformView {
                 // A view that provides a preview of the captured content.
                 CameraPreview(source: camera.previewSource)
                     // Handle capture events from device hardware buttons.
-                    .onCameraCaptureEvent { event in
+                    .onCameraCaptureEvent(defaultSoundDisabled: true) { event in
                         if event.phase == .ended {
-                            Task {
-                                switch camera.captureMode {
-                                case .photo:
-                                    // Capture a photo when pressing a hardware button.
-                                    await camera.capturePhoto()
-                                case .video:
-                                    // Toggle video recording when pressing a hardware button.
-                                    await camera.toggleRecording()
-                                }
+                            let sound: AVCaptureEventSound
+                            switch camera.captureMode {
+                            case .photo:
+                                sound = .cameraShutter
+                                // Capture a photo when pressing a hardware button.
+                                await camera.capturePhoto()
+                            case .video:
+                                sound = camera.captureActivity.isRecording ?
+                                    .endVideoRecording : .beginVideoRecording
+                                // Toggle video recording when pressing a hardware button.
+                                await camera.toggleRecording()
+                            }
+                            // Play a sound when capturing by clicking an AirPods stem.
+                            if event.shouldPlaySound {
+                                event.play(sound)
                             }
                         }
                     }

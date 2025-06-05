@@ -12,8 +12,8 @@ import SwiftUI
 /// The AVFoundation camera APIs require running on a physical device. The app defines the model as a protocol to make it
 /// simple to swap out the real camera for a test camera when previewing SwiftUI views.
 @MainActor
-protocol Camera: AnyObject {
-    
+protocol Camera: AnyObject, SendableMetatype {
+
     /// Provides the current status of the camera.
     var status: CameraStatus { get }
 

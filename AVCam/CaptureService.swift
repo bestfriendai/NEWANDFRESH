@@ -6,7 +6,7 @@ An object that manages a capture session and its inputs and outputs.
 */
 
 import Foundation
-import AVFoundation
+@preconcurrency import AVFoundation
 import Combine
 
 /// An actor that manages the capture pipeline, which includes the capture session, device inputs, and capture outputs.
@@ -123,6 +123,9 @@ actor CaptureService {
             // Retrieve the default camera and microphone.
             let defaultCamera = try deviceLookup.defaultCamera
             let defaultMic = try deviceLookup.defaultMic
+
+            // Enable using AirPods as a high-quality lapel microphone.
+            captureSession.configuresApplicationAudioSessionForBluetoothHighQualityRecording = true
 
             // Add inputs for the default camera and microphone devices.
             activeVideoInput = try addInput(for: defaultCamera)
@@ -390,10 +393,10 @@ actor CaptureService {
     }
     
     private func updatePreviewRotation(_ angle: CGFloat) {
-        let previewLayer = videoPreviewLayer
+        let connection = videoPreviewLayer.connection
         Task { @MainActor in
             // Set initial rotation angle on the video preview.
-            previewLayer.connection?.videoRotationAngle = angle
+            connection?.videoRotationAngle = angle
         }
     }
     
