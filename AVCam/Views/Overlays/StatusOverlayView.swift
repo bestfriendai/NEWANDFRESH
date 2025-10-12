@@ -21,10 +21,14 @@ struct StatusOverlayView: View {
 			// Status message.
 			Text(message)
 				.font(.headline)
-                .foregroundColor(color == .yellow ? .init(white: 0.25) : .white)
+                .foregroundColor(.white)
 				.padding()
-				.background(color)
-				.cornerRadius(8.0)
+                // Apply Liquid Glass effect (iOS 26 placeholder)
+                .glassEffect(.regular, in: .rect(cornerRadius: 12))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(color, lineWidth: 2)
+                )
                 .frame(maxWidth: 600)
 		}
 	}

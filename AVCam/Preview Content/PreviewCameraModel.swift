@@ -7,16 +7,24 @@ A Camera implementation to use when working with SwiftUI previews.
 
 import Foundation
 import SwiftUI
+import AVFoundation
 
 @Observable
 class PreviewCameraModel: Camera {
-    
+
     var isLivePhotoEnabled = true
     var prefersMinimizedUI = false
     var qualityPrioritization = QualityPrioritization.quality
     var shouldFlashScreen = false
     var isHDRVideoSupported = false
     var isHDRVideoEnabled = false
+
+    // Multi-camera properties
+    private(set) var isMultiCamMode = false
+    private(set) var isDualRecording = false
+    var captureSession: AVCaptureSession = AVCaptureSession()
+    var backVideoPort: AVCaptureInput.Port?
+    var frontVideoPort: AVCaptureInput.Port?
     
     struct PreviewSourceStub: PreviewSource {
         // Stubbed out for test purposes.
@@ -66,7 +74,19 @@ class PreviewCameraModel: Camera {
     func toggleRecording() {
         logger.debug("Moving capture isn't implemented in PreviewCamera.")
     }
-    
+
+    func startDualRecording() {
+        logger.debug("Dual recording isn't implemented in PreviewCamera.")
+    }
+
+    func stopDualRecording() {
+        logger.debug("Dual recording isn't implemented in PreviewCamera.")
+    }
+
+    func setupDualPreviewConnections(backLayer: AVCaptureVideoPreviewLayer, frontLayer: AVCaptureVideoPreviewLayer) async {
+        logger.debug("Dual preview setup isn't implemented in PreviewCamera.")
+    }
+
     func focusAndExpose(at point: CGPoint) {
         logger.debug("Focus and expose isn't implemented in PreviewCamera.")
     }

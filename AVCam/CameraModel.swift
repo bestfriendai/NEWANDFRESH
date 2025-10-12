@@ -1,5 +1,5 @@
 /*
-See the LICENSE.txt file for this sample’s licensing information.
+See the LICENSE.txt file for this sample's licensing information.
 
 Abstract:
 An object that provides the interface to the features of the camera.
@@ -7,6 +7,7 @@ An object that provides the interface to the features of the camera.
 
 import SwiftUI
 import Combine
+import AVFoundation
 
 /// An object that provides the interface to the features of the camera.
 ///
@@ -43,13 +44,32 @@ final class CameraModel: Camera {
     
     /// An error that indicates the details of an error during photo or movie capture.
     private(set) var error: Error?
-    
+
     /// An object that provides the connection between the capture session and the video preview layer.
     var previewSource: PreviewSource { captureService.previewSource }
-    
+
+    // MARK: - Multi-Camera Properties
+
+    /// A Boolean value that indicates whether the camera is in multi-camera mode.
+    private(set) var isMultiCamMode: Bool = false
+
+    /// A Boolean value that indicates whether dual camera recording is active.
+    private(set) var isDualRecording = false
+
+    /// The AVCaptureSession instance for preview connections.
+    var captureSession: AVCaptureSession {
+        captureService.captureSession
+    }
+
+    /// The back camera preview port for dual preview connections.
+    private(set) var backVideoPort: AVCaptureInput.Port?
+
+    /// The front camera preview port for dual preview connections.
+    private(set) var frontVideoPort: AVCaptureInput.Port?
+
     /// A Boolean that indicates whether the camera supports HDR video recording.
     private(set) var isHDRVideoSupported = false
-    
+
     /// An object that saves captured media to a person's Photos library.
     private let mediaLibrary = MediaLibrary()
     
@@ -76,11 +96,22 @@ final class CameraModel: Camera {
             await syncState()
             // Start the capture service to start the flow of data.
             try await captureService.start(with: cameraState)
+            // Update multi-cam state
+            await updateMultiCamState()
             observeState()
             status = .running
         } catch {
             logger.error("Failed to start capture service. \(error)")
             status = .failed
+        }
+    }
+
+    /// Updates the multi-camera state from the capture service
+    private func updateMultiCamState() async {
+        isMultiCamMode = await captureService.isMultiCamMode
+        if isMultiCamMode {
+            backVideoPort = await captureService.backCameraPreviewPort
+            frontVideoPort = await captureService.frontCameraPreviewPort
         }
     }
     
@@ -190,9 +221,61 @@ final class CameraModel: Camera {
             await captureService.startRecording()
         }
     }
-    
+
+    // MARK: - Multi-Camera Support
+
+    /// Starts dual camera recording with haptic feedback.
+    func startDualRecording() async {
+        // Haptic feedback
+        #if os(iOS)
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+        #endif
+
+        do {
+            _ = try await captureService.startDualRecording()
+            isDualRecording = true
+            logger.info("Started dual camera recording")
+        } catch {
+            logger.error("Failed to start dual recording: \(error.localizedDescription)")
+            self.error = error
+        }
+    }
+
+    /// Stops dual camera recording with haptic feedback.
+    func stopDualRecording() async {
+        // Haptic feedback
+        #if os(iOS)
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
+        #endif
+
+        do {
+            let outputURL = try await captureService.stopDualRecording()
+            isDualRecording = false
+
+            // Save to photo library
+            try await mediaLibrary.save(movie: Movie(url: outputURL))
+            logger.info("Stopped dual recording, saved to library")
+        } catch {
+            logger.error("Failed to stop dual recording: \(error.localizedDescription)")
+            self.error = error
+        }
+    }
+
+    /// Setup preview layer connections for dual camera mode
+    func setupDualPreviewConnections(backLayer: AVCaptureVideoPreviewLayer, frontLayer: AVCaptureVideoPreviewLayer) async {
+        do {
+            try await captureService.setupPreviewConnections(backLayer: backLayer, frontLayer: frontLayer)
+            logger.info("Dual preview connections setup successfully")
+        } catch {
+            logger.error("Failed to setup dual preview connections: \(error.localizedDescription)")
+            self.error = error
+        }
+    }
+
     // MARK: - Internal state observations
-    
+
     // Set up camera's state observations.
     private func observeState() {
         Task {

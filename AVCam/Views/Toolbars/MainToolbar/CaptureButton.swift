@@ -39,9 +39,22 @@ struct CaptureButton<CameraModel: Camera>: View {
                 }
             }
         case .video:
-            MovieCaptureButton(isRecording: $isRecording) { _ in
-                Task {
-                    await camera.toggleRecording()
+            // Check if in multi-cam mode and handle dual recording
+            if camera.isMultiCamMode {
+                DualCameraRecordButton(isDualRecording: camera.isDualRecording) {
+                    Task {
+                        if camera.isDualRecording {
+                            await camera.stopDualRecording()
+                        } else {
+                            await camera.startDualRecording()
+                        }
+                    }
+                }
+            } else {
+                MovieCaptureButton(isRecording: $isRecording) { _ in
+                    Task {
+                        await camera.toggleRecording()
+                    }
                 }
             }
         }
@@ -123,6 +136,45 @@ private struct MovieCaptureButton: View {
         }
     }
     
+    struct NoFadeButtonStyle: ButtonStyle {
+        func makeBody(configuration: Configuration) -> some View {
+            configuration.label
+        }
+    }
+}
+
+private struct DualCameraRecordButton: View {
+
+    private let action: () -> Void
+    private let lineWidth = CGFloat(4.0)
+    private let isDualRecording: Bool
+
+    init(isDualRecording: Bool, action: @escaping () -> Void) {
+        self.isDualRecording = isDualRecording
+        self.action = action
+    }
+
+    var body: some View {
+        ZStack {
+            Circle()
+                .stroke(lineWidth: lineWidth)
+                .foregroundColor(Color.white)
+            Button {
+                action()
+            } label: {
+                GeometryReader { geometry in
+                    RoundedRectangle(cornerRadius: geometry.size.width / (isDualRecording ? 4.0 : 2.0))
+                        .inset(by: lineWidth * 1.2)
+                        .fill(.red)
+                        .scaleEffect(isDualRecording ? 0.6 : 1.0)
+                }
+            }
+            .buttonStyle(NoFadeButtonStyle())
+        }
+        .scaleEffect(isDualRecording ? 0.8 : 1.0)
+        .animation(.easeInOut(duration: 0.2), value: isDualRecording)
+    }
+
     struct NoFadeButtonStyle: ButtonStyle {
         func makeBody(configuration: Configuration) -> some View {
             configuration.label

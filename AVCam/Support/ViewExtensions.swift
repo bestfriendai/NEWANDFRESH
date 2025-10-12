@@ -69,13 +69,13 @@ struct DefaultButtonStyle: ButtonStyle {
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .foregroundColor(isEnabled ? .primary : Color(white: 0.4))
+            .foregroundColor(isEnabled ? .white : Color(white: 0.4))
             .font(.system(size: size.rawValue))
             // Pad buttons on devices that use the `regular` size class,
             // and also when explicitly requesting large buttons.
             .padding(isRegularSize || size == .large ? 10.0 : 0)
-            .background(.black.opacity(0.4))
-            .clipShape(size == .small ? AnyShape(Rectangle()) : AnyShape(Circle()))
+            // Apply Liquid Glass effect (iOS 26 placeholder using Material)
+            .glassEffect(.regular, in: size == .small ? .rect(cornerRadius: 0) : .circle)
     }
     
     var isRegularSize: Bool {
@@ -93,5 +93,71 @@ extension View {
 extension Image {
     init(_ image: CGImage) {
         self.init(uiImage: UIImage(cgImage: image))
+    }
+}
+
+// MARK: - Liquid Glass Effect (iOS 26 Placeholder)
+
+/// Placeholder for iOS 26 Liquid Glass effect
+/// TODO: Replace with actual .glassEffect() modifier when iOS 26 is released
+/// Reference: https://developer.apple.com/documentation/TechnologyOverviews/liquid-glass
+extension View {
+    /// Applies a glass-like visual effect to the view (iOS 26 Liquid Glass placeholder)
+    ///
+    /// This is a temporary implementation using Material effects. When iOS 26 is released,
+    /// replace with: .glassEffect(.regular, in: shape)
+    ///
+    /// - Parameters:
+    ///   - variant: The glass effect variant (currently unused, for future API compatibility)
+    ///   - shape: The shape to apply the effect within
+    /// - Returns: A view with glass-like visual effects
+    func glassEffect(_ variant: GlassEffectVariant = .regular, in shape: GlassEffectShape) -> some View {
+        self
+            .background(.ultraThinMaterial)
+            .clipShape(shapeForEffect(shape))
+            .overlay(
+                shapeForEffect(shape)
+                    .stroke(Color.white.opacity(0.2), lineWidth: 0.5)
+            )
+    }
+
+    private func shapeForEffect(_ shape: GlassEffectShape) -> AnyShape {
+        switch shape {
+        case .circle:
+            return AnyShape(Circle())
+        case .capsule:
+            return AnyShape(Capsule())
+        case .rect(let radius):
+            return AnyShape(RoundedRectangle(cornerRadius: radius))
+        }
+    }
+}
+
+/// Glass effect shape variants (iOS 26 placeholder)
+enum GlassEffectShape {
+    case circle
+    case capsule
+    case rect(cornerRadius: CGFloat)
+}
+
+/// Glass effect variants (iOS 26 placeholder)
+enum GlassEffectVariant {
+    case regular
+    case clear
+    case identity
+}
+
+/// A type-erased shape
+struct AnyShape: Shape {
+    private let _path: @Sendable (CGRect) -> Path
+
+    init<S: Shape>(_ shape: S) {
+        _path = { rect in
+            shape.path(in: rect)
+        }
+    }
+
+    func path(in rect: CGRect) -> Path {
+        _path(rect)
     }
 }

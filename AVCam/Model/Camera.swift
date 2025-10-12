@@ -1,11 +1,12 @@
 /*
-See the LICENSE.txt file for this sample’s licensing information.
+See the LICENSE.txt file for this sample's licensing information.
 
 Abstract:
 A protocol that represents the model for the camera view.
 */
 
 import SwiftUI
+import AVFoundation
 
 /// A protocol that represents the model for the camera view.
 ///
@@ -64,13 +65,39 @@ protocol Camera: AnyObject, SendableMetatype {
     
     /// Starts or stops recording a movie, and writes it to the user's photo library when complete.
     func toggleRecording() async
-    
+
     /// A thumbnail image for the most recent photo or video capture.
     var thumbnail: CGImage? { get }
-    
+
     /// An error if the camera encountered a problem.
     var error: Error? { get }
-    
+
     /// Synchronize the state of the camera with the persisted values.
     func syncState() async
+
+    // MARK: - Multi-Camera Support
+
+    /// A Boolean value that indicates whether the camera is in multi-camera mode.
+    var isMultiCamMode: Bool { get }
+
+    /// A Boolean value that indicates whether dual camera recording is active.
+    var isDualRecording: Bool { get }
+
+    /// The AVCaptureSession instance for preview connections.
+    var captureSession: AVCaptureSession { get }
+
+    /// The back camera preview port for dual preview connections.
+    var backVideoPort: AVCaptureInput.Port? { get }
+
+    /// The front camera preview port for dual preview connections.
+    var frontVideoPort: AVCaptureInput.Port? { get }
+
+    /// Starts dual camera recording.
+    func startDualRecording() async
+
+    /// Stops dual camera recording.
+    func stopDualRecording() async
+
+    /// Setup preview layer connections for dual camera mode.
+    func setupDualPreviewConnections(backLayer: AVCaptureVideoPreviewLayer, frontLayer: AVCaptureVideoPreviewLayer) async
 }

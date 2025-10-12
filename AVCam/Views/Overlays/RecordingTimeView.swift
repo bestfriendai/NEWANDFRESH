@@ -16,13 +16,20 @@ struct RecordingTimeView: PlatformView {
     let time: TimeInterval
     
     var body: some View {
-        Text(time.formatted)
-            .padding([.leading, .trailing], 12)
-            .padding([.top, .bottom], isRegularSize ? 8 : 0)
-            .background(Color(white: 0.0, opacity: 0.5))
-            .foregroundColor(.white)
-            .font(.title2.weight(.semibold))
-            .clipShape(.capsule)
+        HStack(spacing: 8) {
+            // Recording indicator dot
+            Circle()
+                .fill(.red)
+                .frame(width: 10, height: 10)
+
+            Text(time.formatted)
+                .font(.system(.body, design: .monospaced).weight(.semibold))
+                .foregroundColor(.white)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, isRegularSize ? 8 : 6)
+        // Apply Liquid Glass effect (iOS 26 placeholder)
+        .glassEffect(.regular, in: .capsule)
     }
 }
 

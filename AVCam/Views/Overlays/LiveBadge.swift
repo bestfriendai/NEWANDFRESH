@@ -10,14 +10,16 @@ import SwiftUI
 /// A view that the app presents to indicate that Live Photo capture is active.
 struct LiveBadge: View {
     var body: some View {
-        Group {
-            Text("LIVE")
-                .padding(6)
-                .foregroundColor(.white)
-                .font(.subheadline.bold())
-        }
-        .background(Color.accentColor.opacity(0.9))
-        .clipShape(.buttonBorder)
+        Text("LIVE")
+            .padding(6)
+            .foregroundColor(.white)
+            .font(.subheadline.bold())
+            // Apply Liquid Glass effect (iOS 26 placeholder)
+            .glassEffect(.regular, in: .rect(cornerRadius: 6))
+            .overlay(
+                RoundedRectangle(cornerRadius: 6)
+                    .stroke(Color.accentColor, lineWidth: 2)
+            )
     }
 }
 

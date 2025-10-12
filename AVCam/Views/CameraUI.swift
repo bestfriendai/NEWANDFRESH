@@ -31,8 +31,11 @@ struct CameraUI<CameraModel: Camera>: PlatformView {
                 LiveBadge()
                     .opacity(camera.captureActivity.isLivePhoto ? 1.0 : 0.0)
             case .video:
-                RecordingTimeView(time: camera.captureActivity.currentTime)
-                    .offset(y: isRegularSize ? 20 : 0)
+                // Show recording timer
+                if camera.captureActivity.isRecording {
+                    RecordingTimeView(time: camera.captureActivity.currentTime)
+                        .offset(y: isRegularSize ? 20 : 0)
+                }
             }
         }
         .overlay {
@@ -43,12 +46,14 @@ struct CameraUI<CameraModel: Camera>: PlatformView {
     /// This view arranges UI elements vertically.
     @ViewBuilder
     var compactUI: some View {
-        VStack(spacing: 0) {
-            FeaturesToolbar(camera: camera)
-            Spacer()
-            CaptureModeView(camera: camera, direction: $swipeDirection)
-            MainToolbar(camera: camera)
-                .padding(.bottom, bottomPadding)
+        GeometryReader { geometry in
+            VStack(spacing: 0) {
+                FeaturesToolbar(camera: camera)
+                Spacer()
+                CaptureModeView(camera: camera, direction: $swipeDirection)
+                MainToolbar(camera: camera)
+                    .padding(.bottom, bottomPadding(for: geometry.size))
+            }
         }
     }
     
@@ -66,8 +71,8 @@ struct CameraUI<CameraModel: Camera>: PlatformView {
                     .offset(x: 250) // The vertical offset from center.
             }
             .frame(width: 740)
-            .background(.ultraThinMaterial.opacity(0.8))
-            .cornerRadius(12)
+            // Apply Liquid Glass effect (iOS 26 placeholder)
+            .glassEffect(.regular, in: .rect(cornerRadius: 12))
             .padding(.bottom, 32)
         }
     }
@@ -80,9 +85,9 @@ struct CameraUI<CameraModel: Camera>: PlatformView {
             }
     }
     
-    var bottomPadding: CGFloat {
+    func bottomPadding(for size: CGSize) -> CGFloat {
         // Dynamically calculate the offset for the bottom toolbar in iOS.
-        let bounds = UIScreen.main.bounds
+        let bounds = CGRect(origin: .zero, size: size)
         let rect = AVMakeRect(aspectRatio: movieAspectRatio, insideRect: bounds)
         return (rect.minY.rounded() / 2) + 12
     }

@@ -23,12 +23,15 @@ actor CaptureService {
     @Published var isHDRVideoEnabled = false
     /// A Boolean value that indicates whether capture controls are in a fullscreen appearance.
     @Published var isShowingFullscreenControls = false
-    
+
     /// A type that connects a preview destination with the capture session.
     nonisolated let previewSource: PreviewSource
-    
+
     // The app's capture session.
-    private let captureSession = AVCaptureSession()
+    nonisolated let captureSession: AVCaptureSession
+
+    // Indicates whether the service is running in multi-camera mode
+    private(set) var isMultiCamMode: Bool = false
     
     // An object that manages the app's photo capture behavior.
     private let photoCapture = PhotoCapture()
@@ -41,7 +44,28 @@ actor CaptureService {
     
     // The video input for the currently selected device camera.
     private var activeVideoInput: AVCaptureDeviceInput?
-    
+
+    // Multi-camera specific properties
+    private var backCameraDevice: AVCaptureDevice?
+    private var frontCameraDevice: AVCaptureDevice?
+    private var backVideoInput: AVCaptureDeviceInput?
+    private var frontVideoInput: AVCaptureDeviceInput?
+
+    // Separate outputs for each camera
+    fileprivate var backVideoOutput: AVCaptureVideoDataOutput?
+    fileprivate var frontVideoOutput: AVCaptureVideoDataOutput?
+
+    // Output queues
+    private let backVideoQueue = DispatchQueue(label: "com.apple.avcam.backVideoQueue", qos: .userInitiated)
+    private let frontVideoQueue = DispatchQueue(label: "com.apple.avcam.frontVideoQueue", qos: .userInitiated)
+
+    // Recording
+    fileprivate var dualRecorder: DualMovieRecorder?
+    private var synchronizer: AVCaptureDataOutputSynchronizer?
+    private let synchronizerQueue = DispatchQueue(label: "com.apple.avcam.synchronizer", qos: .userInitiated)
+    private var audioOutput: AVCaptureAudioDataOutput?
+    private var dualRecordingDelegate: DualRecordingDelegate?
+
     // The mode of capture, either photo or video. Defaults to photo.
     private(set) var captureMode = CaptureMode.photo
     
@@ -73,6 +97,12 @@ actor CaptureService {
     }
     
     init() {
+        // Check multi-cam support and create appropriate session
+        if AVCaptureMultiCamSession.isMultiCamSupported {
+            self.captureSession = AVCaptureMultiCamSession()
+        } else {
+            self.captureSession = AVCaptureSession()
+        }
         // Create a source object to connect the preview view with the capture session.
         previewSource = DefaultPreviewSource(session: captureSession)
     }
@@ -94,18 +124,292 @@ actor CaptureService {
             return isAuthorized
         }
     }
-    
+
+    // MARK: - Multi-Camera Configuration
+
+    /// Configures multi-camera session with back and front cameras
+    private func configureMultiCamSession() throws {
+        guard let multiCamSession = captureSession as? AVCaptureMultiCamSession else {
+            logger.error("Failed to cast session to AVCaptureMultiCamSession")
+            throw CameraError.setupFailed
+        }
+
+        guard let devicePair = deviceLookup.multiCamDevicePair else {
+            logger.error("No multi-cam device pair available")
+            throw CameraError.setupFailed
+        }
+
+        logger.info("Starting multi-cam configuration with back: \(devicePair.back.localizedName), front: \(devicePair.front.localizedName)")
+
+        // Store devices
+        backCameraDevice = devicePair.back
+        frontCameraDevice = devicePair.front
+
+        // Configure formats BEFORE session configuration
+        try configureMultiCamFormats(back: devicePair.back, front: devicePair.front)
+
+        // Now configure the session
+        multiCamSession.beginConfiguration()
+        defer { multiCamSession.commitConfiguration() }
+
+        // Add inputs without automatic connections
+        try addMultiCamInputs(back: devicePair.back, front: devicePair.front)
+
+        // Add audio input FIRST (before outputs)
+        let defaultMic = try deviceLookup.defaultMic
+        try addInput(for: defaultMic)
+
+        // Add outputs without automatic connections
+        try addMultiCamOutputs()
+
+        // Create manual connections
+        try createMultiCamConnections()
+
+        // Check hardware cost
+        let hardwareCost = multiCamSession.hardwareCost
+        logger.info("Multi-cam hardware cost: \(hardwareCost)")
+
+        guard hardwareCost < 1.0 else {
+            logger.error("Hardware cost too high: \(hardwareCost) (must be < 1.0)")
+            throw CameraError.setupFailed
+        }
+
+        logger.info("Hardware cost check passed: \(hardwareCost)")
+
+        // Monitor system pressure for both devices
+        observeSystemPressure(for: devicePair.back)
+        observeSystemPressure(for: devicePair.front)
+
+        // Setup synchronizer for recording
+        setupSynchronizer()
+
+        isMultiCamMode = true
+
+        logger.info("Multi-camera session configuration complete")
+    }
+
+    /// Configure formats for multi-cam mode
+    private func configureMultiCamFormats(back: AVCaptureDevice, front: AVCaptureDevice) throws {
+        // Back camera - higher resolution (primary)
+        guard let backFormat = deviceLookup.selectMultiCamFormat(for: back, targetFPS: 30) else {
+            logger.error("No suitable multi-cam format found for back camera")
+            throw CameraError.setupFailed
+        }
+
+        do {
+            try back.lockForConfiguration()
+            back.activeFormat = backFormat
+            back.activeVideoMinFrameDuration = CMTime(value: 1, timescale: 30)
+            back.activeVideoMaxFrameDuration = CMTime(value: 1, timescale: 30)
+            back.unlockForConfiguration()
+            logger.info("Back camera format configured: \(backFormat)")
+        } catch {
+            logger.error("Failed to configure back camera format: \(error.localizedDescription)")
+            throw error
+        }
+
+        // Front camera - lower resolution (PiP)
+        guard let frontFormat = deviceLookup.selectMultiCamFormat(for: front, targetFPS: 30) else {
+            logger.error("No suitable multi-cam format found for front camera")
+            throw CameraError.setupFailed
+        }
+
+        do {
+            try front.lockForConfiguration()
+            front.activeFormat = frontFormat
+            front.activeVideoMinFrameDuration = CMTime(value: 1, timescale: 30)
+            front.activeVideoMaxFrameDuration = CMTime(value: 1, timescale: 30)
+            front.unlockForConfiguration()
+            logger.info("Front camera format configured: \(frontFormat)")
+        } catch {
+            logger.error("Failed to configure front camera format: \(error.localizedDescription)")
+            throw error
+        }
+    }
+
+    /// Add multi-cam inputs without automatic connections
+    private func addMultiCamInputs(back: AVCaptureDevice, front: AVCaptureDevice) throws {
+        guard let multiCamSession = captureSession as? AVCaptureMultiCamSession else {
+            logger.error("Failed to get multi-cam session for adding inputs")
+            throw CameraError.setupFailed
+        }
+
+        // Create both inputs first
+        let backInput = try AVCaptureDeviceInput(device: back)
+        let frontInput = try AVCaptureDeviceInput(device: front)
+
+        // Check if BOTH can be added before adding either
+        guard multiCamSession.canAddInput(backInput) else {
+            logger.error("Cannot add back camera input to session")
+            throw CameraError.addInputFailed
+        }
+
+        guard multiCamSession.canAddInput(frontInput) else {
+            logger.error("Cannot add front camera input to session")
+            throw CameraError.addInputFailed
+        }
+
+        // Now add both
+        multiCamSession.addInputWithNoConnections(backInput)
+        backVideoInput = backInput
+        logger.info("Back camera input added")
+
+        multiCamSession.addInputWithNoConnections(frontInput)
+        frontVideoInput = frontInput
+        logger.info("Front camera input added")
+    }
+
+    /// Add multi-cam outputs without automatic connections
+    private func addMultiCamOutputs() throws {
+        guard let multiCamSession = captureSession as? AVCaptureMultiCamSession else {
+            throw CameraError.setupFailed
+        }
+
+        // Back camera video output
+        let backOutput = AVCaptureVideoDataOutput()
+        backOutput.videoSettings = [
+            kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_32BGRA)
+        ]
+        backOutput.alwaysDiscardsLateVideoFrames = true
+
+        guard multiCamSession.canAddOutput(backOutput) else {
+            throw CameraError.addOutputFailed
+        }
+        multiCamSession.addOutputWithNoConnections(backOutput)
+        backVideoOutput = backOutput
+
+        // Front camera video output
+        let frontOutput = AVCaptureVideoDataOutput()
+        frontOutput.videoSettings = [
+            kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_32BGRA)
+        ]
+        frontOutput.alwaysDiscardsLateVideoFrames = true
+
+        guard multiCamSession.canAddOutput(frontOutput) else {
+            throw CameraError.addOutputFailed
+        }
+        multiCamSession.addOutputWithNoConnections(frontOutput)
+        frontVideoOutput = frontOutput
+
+        // Audio output for recording
+        let audioOutput = AVCaptureAudioDataOutput()
+        guard multiCamSession.canAddOutput(audioOutput) else {
+            throw CameraError.addOutputFailed
+        }
+        multiCamSession.addOutput(audioOutput)
+        self.audioOutput = audioOutput
+
+        logger.info("Multi-cam outputs configured: back video, front video, audio")
+    }
+
+    /// Create manual connections for multi-cam outputs
+    private func createMultiCamConnections() throws {
+        guard let multiCamSession = captureSession as? AVCaptureMultiCamSession,
+              let backInput = backVideoInput,
+              let frontInput = frontVideoInput,
+              let backOutput = backVideoOutput,
+              let frontOutput = frontVideoOutput,
+              let backCamera = backCameraDevice,
+              let frontCamera = frontCameraDevice else {
+            throw CameraError.setupFailed
+        }
+
+        // Back camera video port
+        guard let backVideoPort = backInput.ports(
+            for: .video,
+            sourceDeviceType: backCamera.deviceType,
+            sourceDevicePosition: backCamera.position
+        ).first else {
+            throw CameraError.setupFailed
+        }
+
+        // Back camera data output connection
+        let backOutputConnection = AVCaptureConnection(inputPorts: [backVideoPort], output: backOutput)
+        guard multiCamSession.canAddConnection(backOutputConnection) else {
+            throw CameraError.setupFailed
+        }
+
+        if backOutputConnection.isVideoStabilizationSupported {
+            backOutputConnection.preferredVideoStabilizationMode = .auto
+        }
+
+        multiCamSession.addConnection(backOutputConnection)
+        logger.info("Added back camera output connection")
+
+        // Front camera video port
+        guard let frontVideoPort = frontInput.ports(
+            for: .video,
+            sourceDeviceType: frontCamera.deviceType,
+            sourceDevicePosition: frontCamera.position
+        ).first else {
+            throw CameraError.setupFailed
+        }
+
+        // Front camera data output connection
+        let frontOutputConnection = AVCaptureConnection(inputPorts: [frontVideoPort], output: frontOutput)
+        guard multiCamSession.canAddConnection(frontOutputConnection) else {
+            throw CameraError.setupFailed
+        }
+
+        if frontOutputConnection.isVideoStabilizationSupported {
+            frontOutputConnection.preferredVideoStabilizationMode = .auto
+        }
+
+        multiCamSession.addConnection(frontOutputConnection)
+        logger.info("Added front camera output connection")
+    }
+
+    /// Monitor system pressure for a device
+    private func observeSystemPressure(for device: AVCaptureDevice) {
+        let observation = device.observe(\.systemPressureState, options: .new) { [weak self] device, _ in
+            Task { @MainActor [weak self] in
+                await self?.handleSystemPressure(state: device.systemPressureState, for: device)
+            }
+        }
+        // Store observation to keep it alive
+        rotationObservers.append(observation)
+    }
+
+    private func handleSystemPressure(state: AVCaptureDevice.SystemPressureState, for device: AVCaptureDevice) async {
+        logger.warning("System pressure: \(state.level.rawValue) for device: \(device.localizedName)")
+
+        switch state.level {
+        case .serious:
+            // Reduce frame rate
+            try? device.lockForConfiguration()
+            device.activeVideoMinFrameDuration = CMTime(value: 1, timescale: 20)
+            device.unlockForConfiguration()
+
+        case .critical:
+            // Aggressively reduce frame rate
+            try? device.lockForConfiguration()
+            device.activeVideoMinFrameDuration = CMTime(value: 1, timescale: 15)
+            device.unlockForConfiguration()
+
+        case .shutdown:
+            // Stop capture
+            captureSession.stopRunning()
+
+        default:
+            break
+        }
+    }
+
     // MARK: - Capture session life cycle
     func start(with state: CameraState) async throws {
         // Set initial operating state.
         captureMode = state.captureMode
         isHDRVideoEnabled = state.isVideoHDREnabled
-        
+
         // Exit early if not authorized or the session is already running.
-        guard await isAuthorized, !captureSession.isRunning else { return }
+        guard await isAuthorized, !captureSession.isRunning else {
+            logger.info("Skipping start - not authorized or already running")
+            return
+        }
         // Configure the session and start it.
         try setUpSession()
         captureSession.startRunning()
+        logger.info("Capture session started running. Multi-cam mode: \(self.isMultiCamMode)")
     }
     
     // MARK: - Capture setup
@@ -118,45 +422,71 @@ actor CaptureService {
         observeOutputServices()
         observeNotifications()
         observeCaptureControlsState()
-        
-        do {
-            // Retrieve the default camera and microphone.
-            let defaultCamera = try deviceLookup.defaultCamera
-            let defaultMic = try deviceLookup.defaultMic
 
-            // Enable using AirPods as a high-quality lapel microphone.
-            captureSession.configuresApplicationAudioSessionForBluetoothHighQualityRecording = true
-
-            // Add inputs for the default camera and microphone devices.
-            activeVideoInput = try addInput(for: defaultCamera)
-            try addInput(for: defaultMic)
-
-            // Configure the session preset based on the current capture mode.
-            captureSession.sessionPreset = captureMode == .photo ? .photo : .high
-            // Add the photo capture output as the default output type.
-            try addOutput(photoCapture.output)
-            // If the capture mode is set to Video, add a movie capture output.
-            if captureMode == .video {
-                // Add the movie output as the default output type.
-                try addOutput(movieCapture.output)
-                setHDRVideoEnabled(isHDRVideoEnabled)
+        // Check if multi-cam is supported and try to configure it
+        var multiCamSetupSucceeded = false
+        if AVCaptureMultiCamSession.isMultiCamSupported {
+            do {
+                try configureMultiCamSession()
+                multiCamSetupSucceeded = true
+                logger.info("Multi-camera session configured successfully")
+            } catch {
+                logger.error("Multi-camera setup failed: \(error.localizedDescription). Falling back to single camera.")
+                // Reset any partial multi-cam state
+                backCameraDevice = nil
+                frontCameraDevice = nil
+                backVideoInput = nil
+                frontVideoInput = nil
+                backVideoOutput = nil
+                frontVideoOutput = nil
+                isMultiCamMode = false
             }
-            
-            // Configure controls to use with the Camera Control.
-            configureControls(for: defaultCamera)
-            // Monitor the system-preferred camera state.
-            monitorSystemPreferredCamera()
-            // Configure a rotation coordinator for the default video device.
-            createRotationCoordinator(for: defaultCamera)
-            // Observe changes to the default camera's subject area.
-            observeSubjectAreaChanges(of: defaultCamera)
-            // Update the service's advertised capabilities.
-            updateCaptureCapabilities()
-            
-            isSetUp = true
-        } catch {
-            throw CameraError.setupFailed
         }
+
+        // If multi-cam setup failed or isn't supported, use single camera
+        if !multiCamSetupSucceeded {
+            do {
+                // Retrieve the default camera and microphone.
+                let defaultCamera = try deviceLookup.defaultCamera
+                let defaultMic = try deviceLookup.defaultMic
+
+                // Enable using AirPods as a high-quality lapel microphone.
+                captureSession.configuresApplicationAudioSessionForBluetoothHighQualityRecording = true
+
+                // Add inputs for the default camera and microphone devices.
+                activeVideoInput = try addInput(for: defaultCamera)
+                try addInput(for: defaultMic)
+
+                // Configure the session preset based on the current capture mode.
+                captureSession.sessionPreset = captureMode == .photo ? .photo : .high
+                // Add the photo capture output as the default output type.
+                try addOutput(photoCapture.output)
+                // If the capture mode is set to Video, add a movie capture output.
+                if captureMode == .video {
+                    // Add the movie output as the default output type.
+                    try addOutput(movieCapture.output)
+                    setHDRVideoEnabled(isHDRVideoEnabled)
+                }
+
+                // Configure controls to use with the Camera Control.
+                configureControls(for: defaultCamera)
+                // Monitor the system-preferred camera state.
+                monitorSystemPreferredCamera()
+                // Configure a rotation coordinator for the default video device.
+                createRotationCoordinator(for: defaultCamera)
+                // Observe changes to the default camera's subject area.
+                observeSubjectAreaChanges(of: defaultCamera)
+                // Update the service's advertised capabilities.
+                updateCaptureCapabilities()
+
+                logger.info("Single camera session configured successfully")
+            } catch {
+                logger.error("Single camera setup failed: \(error.localizedDescription)")
+                throw CameraError.setupFailed
+            }
+        }
+
+        isSetUp = true
     }
 
     // Adds an input to the capture session to connect the specified capture device.
@@ -182,6 +512,11 @@ actor CaptureService {
     
     // The device for the active video input.
     private var currentDevice: AVCaptureDevice {
+        // In multi-cam mode, return the back camera as the "current" device
+        if isMultiCamMode, let device = backVideoInput?.device {
+            return device
+        }
+        // In single-cam mode, use the active video input
         guard let device = activeVideoInput?.device else {
             fatalError("No device found for current video input.")
         }
@@ -292,6 +627,12 @@ actor CaptureService {
     /// The implementation switches between the front and back cameras and, in iPadOS,
     /// connected external cameras.
     func selectNextVideoDevice() {
+        // Cannot switch devices in multi-cam mode
+        guard !isMultiCamMode else {
+            logger.warning("Cannot switch video devices in multi-camera mode")
+            return
+        }
+
         // The array of available video capture devices.
         let videoDevices = deviceLookup.cameras
 
@@ -315,6 +656,12 @@ actor CaptureService {
     
     // Changes the device the service uses for video capture.
     private func changeCaptureDevice(to device: AVCaptureDevice) {
+        // Cannot change devices in multi-cam mode
+        guard !isMultiCamMode else {
+            logger.warning("Cannot change capture device in multi-camera mode")
+            return
+        }
+
         // The service must have a valid video input prior to calling this method.
         guard let currentInput = activeVideoInput else { fatalError() }
         
@@ -507,7 +854,7 @@ actor CaptureService {
             logger.error("Unable to obtain lock on device and can't enable HDR video capture.")
         }
     }
-    
+
     // MARK: - Internal state management
     /// Updates the state of the actor to ensure its advertised capabilities are accurate.
     ///
@@ -567,6 +914,188 @@ actor CaptureService {
                     }
                 }
             }
+        }
+    }
+
+    // MARK: - Dual Camera Recording
+
+    /// Setup synchronizer for dual camera recording
+    private func setupSynchronizer() {
+        guard let backOutput = backVideoOutput,
+              let frontOutput = frontVideoOutput else {
+            logger.error("Cannot setup synchronizer - missing outputs")
+            return
+        }
+
+        // Create delegate helper - IMPORTANT: Must be retained!
+        let delegate = DualRecordingDelegate(captureService: self)
+        self.dualRecordingDelegate = delegate
+
+        // Create synchronizer (it becomes the delegate of the outputs automatically)
+        let synchronizer = AVCaptureDataOutputSynchronizer(
+            dataOutputs: [backOutput, frontOutput]
+        )
+
+        synchronizer.setDelegate(delegate, queue: synchronizerQueue)
+        self.synchronizer = synchronizer
+
+        logger.info("✅ Synchronizer configured with delegate")
+
+        // Setup audio delegate separately
+        audioOutput?.setSampleBufferDelegate(delegate, queue: synchronizerQueue)
+        logger.info("✅ Audio delegate configured")
+    }
+
+    /// Computed property to get back camera preview port
+    var backCameraPreviewPort: AVCaptureInput.Port? {
+        guard let backInput = backVideoInput,
+              let backCamera = backCameraDevice else {
+            return nil
+        }
+
+        return backInput.ports(
+            for: .video,
+            sourceDeviceType: backCamera.deviceType,
+            sourceDevicePosition: backCamera.position
+        ).first
+    }
+
+    /// Computed property to get front camera preview port
+    var frontCameraPreviewPort: AVCaptureInput.Port? {
+        guard let frontInput = frontVideoInput,
+              let frontCamera = frontCameraDevice else {
+            return nil
+        }
+
+        return frontInput.ports(
+            for: .video,
+            sourceDeviceType: frontCamera.deviceType,
+            sourceDevicePosition: frontCamera.position
+        ).first
+    }
+
+    /// Setup preview layer connections for dual camera mode
+    /// Must be called AFTER preview layers are created
+    func setupPreviewConnections(backLayer: AVCaptureVideoPreviewLayer, frontLayer: AVCaptureVideoPreviewLayer) throws {
+        guard let multiCamSession = captureSession as? AVCaptureMultiCamSession,
+              let backPort = backCameraPreviewPort,
+              let frontPort = frontCameraPreviewPort else {
+            throw CameraError.setupFailed
+        }
+
+        multiCamSession.beginConfiguration()
+        defer { multiCamSession.commitConfiguration() }
+
+        // Set sessions first
+        backLayer.setSessionWithNoConnection(multiCamSession)
+        frontLayer.setSessionWithNoConnection(multiCamSession)
+
+        // Create preview connections
+        let backPreviewConnection = AVCaptureConnection(inputPort: backPort, videoPreviewLayer: backLayer)
+        if multiCamSession.canAddConnection(backPreviewConnection) {
+            multiCamSession.addConnection(backPreviewConnection)
+            logger.info("Added back camera preview connection")
+        } else {
+            logger.error("Cannot add back camera preview connection")
+        }
+
+        let frontPreviewConnection = AVCaptureConnection(inputPort: frontPort, videoPreviewLayer: frontLayer)
+        if multiCamSession.canAddConnection(frontPreviewConnection) {
+            multiCamSession.addConnection(frontPreviewConnection)
+            logger.info("Added front camera preview connection")
+        } else {
+            logger.error("Cannot add front camera preview connection")
+        }
+    }
+
+    /// Starts dual camera recording
+    func startDualRecording() async throws -> URL {
+        guard isMultiCamMode else {
+            throw CameraError.multiCamNotSupported
+        }
+
+        // Generate output URL
+        let outputURL = FileManager.default.temporaryDirectory
+            .appendingPathComponent(UUID().uuidString)
+            .appendingPathExtension("mov")
+
+        // Create recorder
+        let recorder = DualMovieRecorder()
+        try await recorder.startRecording(to: outputURL)
+
+        dualRecorder = recorder
+
+        return outputURL
+    }
+
+    /// Stops dual camera recording
+    func stopDualRecording() async throws -> URL {
+        guard let recorder = dualRecorder else {
+            throw CameraError.configurationFailed
+        }
+
+        let outputURL = try await recorder.stopRecording()
+        dualRecorder = nil
+
+        return outputURL
+    }
+}
+
+// MARK: - Dual Recording Delegate Helper
+
+/// Helper class to bridge delegate callbacks to the actor-isolated CaptureService
+private class DualRecordingDelegate: NSObject, AVCaptureDataOutputSynchronizerDelegate, AVCaptureAudioDataOutputSampleBufferDelegate {
+    weak var captureService: CaptureService?
+
+    init(captureService: CaptureService) {
+        self.captureService = captureService
+        super.init()
+    }
+
+    func dataOutputSynchronizer(
+        _ synchronizer: AVCaptureDataOutputSynchronizer,
+        didOutput synchronizedDataCollection: AVCaptureSynchronizedDataCollection
+    ) {
+        // Extract outputs from synchronizer's data outputs array (these are the outputs we registered)
+        guard synchronizer.dataOutputs.count == 2,
+              let backOutput = synchronizer.dataOutputs[0] as? AVCaptureVideoDataOutput,
+              let frontOutput = synchronizer.dataOutputs[1] as? AVCaptureVideoDataOutput else {
+            return
+        }
+
+        // Get synchronized data immediately (must be synchronous)
+        guard let backData = synchronizedDataCollection.synchronizedData(for: backOutput) as? AVCaptureSynchronizedSampleBufferData,
+              let frontData = synchronizedDataCollection.synchronizedData(for: frontOutput) as? AVCaptureSynchronizedSampleBufferData else {
+            return
+        }
+
+        // Check for dropped frames
+        guard !backData.sampleBufferWasDropped,
+              !frontData.sampleBufferWasDropped else {
+            return
+        }
+
+        let backBuffer = backData.sampleBuffer
+        let frontBuffer = frontData.sampleBuffer
+
+        // Process frames asynchronously
+        Task { [weak self] in
+            guard let service = self?.captureService else { return }
+            await service.dualRecorder?.processSynchronizedFrames(
+                backBuffer: backBuffer,
+                frontBuffer: frontBuffer
+            )
+        }
+    }
+
+    func captureOutput(
+        _ output: AVCaptureOutput,
+        didOutput sampleBuffer: CMSampleBuffer,
+        from connection: AVCaptureConnection
+    ) {
+        Task { [weak self] in
+            guard let service = self?.captureService else { return }
+            await service.dualRecorder?.processAudio(sampleBuffer)
         }
     }
 }

@@ -22,7 +22,8 @@ struct ThumbnailButton<CameraModel: Camera>: View {
             thumbnail
         }
 		.frame(width: 64.0, height: 64.0)
-		.cornerRadius(8)
+        // Apply Liquid Glass effect (iOS 26 placeholder)
+        .glassEffect(.regular, in: .rect(cornerRadius: 8))
         .disabled(camera.captureActivity.isRecording)
     }
     

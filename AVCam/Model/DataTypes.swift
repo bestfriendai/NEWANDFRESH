@@ -138,6 +138,10 @@ enum CameraError: Error {
     case addOutputFailed
     case setupFailed
     case deviceChangeFailed
+    case multiCamNotSupported
+    case hardwareCostExceeded
+    case connectionFailed
+    case configurationFailed
 }
 
 protocol OutputService {

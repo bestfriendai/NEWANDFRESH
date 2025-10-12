@@ -24,8 +24,10 @@ struct CameraView<CameraModel: Camera>: PlatformView {
         ZStack {
             // A container view that manages the placement of the preview.
             PreviewContainer(camera: camera) {
-                // A view that provides a preview of the captured content.
-                CameraPreview(source: camera.previewSource)
+                // Conditional preview based on multi-cam mode
+                if camera.isMultiCamMode {
+                    // Dual camera preview with split-screen
+                    DualCameraPreview(camera: camera)
                     // Handle capture events from device hardware buttons.
                     .onCameraCaptureEvent(defaultSoundDisabled: true) { event in
                         if event.phase == .ended {
@@ -57,7 +59,55 @@ struct CameraView<CameraModel: Camera>: PlatformView {
                     /// starts, and then immediately changes to `false`. Use this change to
                     /// flash the screen to provide visual feedback when capturing photos.
                     .opacity(camera.shouldFlashScreen ? 0 : 1)
+                } else {
+                    // Single camera preview
+                    CameraPreview(source: camera.previewSource)
+                        // Handle capture events from device hardware buttons.
+                        .onCameraCaptureEvent(defaultSoundDisabled: true) { event in
+                            if event.phase == .ended {
+                                let sound: AVCaptureEventSound
+                                switch camera.captureMode {
+                                case .photo:
+                                    sound = .cameraShutter
+                                    // Capture a photo when pressing a hardware button.
+                                    await camera.capturePhoto()
+                                case .video:
+                                    sound = camera.captureActivity.isRecording ?
+                                        .endVideoRecording : .beginVideoRecording
+                                    // Toggle video recording when pressing a hardware button.
+                                    await camera.toggleRecording()
+                                }
+                                // Play a sound when capturing by clicking an AirPods stem.
+                                if event.shouldPlaySound {
+                                    event.play(sound)
+                                }
+                            }
+                        }
+                        // Focus and expose at the tapped point.
+                        .onTapGesture { location in
+                            Task { await camera.focusAndExpose(at: location) }
+                        }
+                        // Switch between capture modes by swiping left and right.
+                        .simultaneousGesture(swipeGesture)
+                        /// The value of `shouldFlashScreen` changes briefly to `true` when capture
+                        /// starts, and then immediately changes to `false`. Use this change to
+                        /// flash the screen to provide visual feedback when capturing photos.
+                        .opacity(camera.shouldFlashScreen ? 0 : 1)
+                }
             }
+
+            // Multi-cam indicator badge
+            if camera.isMultiCamMode {
+                VStack {
+                    HStack {
+                        MultiCamBadge()
+                        Spacer()
+                    }
+                    .padding()
+                    Spacer()
+                }
+            }
+
             // The main camera user interface.
             CameraUI(camera: camera, swipeDirection: $swipeDirection)
         }
