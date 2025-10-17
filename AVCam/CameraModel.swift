@@ -373,7 +373,7 @@ final class CameraModel: Camera {
             await withTaskGroup(of: Void.self) { group in
                 // Thumbnail observation
                 group.addTask {
-                    for await thumbnail in await self.mediaLibrary.thumbnails.compactMap({ $0 }) {
+                    for await thumbnail in self.mediaLibrary.thumbnails.compactMap({ $0 }) {
                         await MainActor.run {
                             self.thumbnail = thumbnail
                         }

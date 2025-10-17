@@ -1,10 +1,4 @@
 {
-  "images" : [
-    {
-      "filename" : "photo_mode.jpg",
-      "idiom" : "universal"
-    }
-  ],
   "info" : {
     "author" : "xcode",
     "version" : 1

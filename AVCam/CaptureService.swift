@@ -1152,42 +1152,56 @@ actor CaptureService {
         setRotationAngle(on: backVideoOutput, angle: backRC.videoRotationAngleForHorizonLevelCapture)
         setRotationAngle(on: frontVideoOutput, angle: frontRC.videoRotationAngleForHorizonLevelCapture)
 
-        // Observe preview angle changes
+        // Observe preview angle changes - use non-Sendable workaround
         rotationObservers.append(
-            backRC.observe(\.videoRotationAngleForHorizonLevelPreview, options: .new) { [weak self] _, change in
+            backRC.observe(\.videoRotationAngleForHorizonLevelPreview, options: .new) { _, change in
                 guard let angle = change.newValue else { return }
-                Task { @MainActor in backLayer.connection?.videoRotationAngle = angle }
-            }
-        )
-        rotationObservers.append(
-            frontRC.observe(\.videoRotationAngleForHorizonLevelPreview, options: .new) { [weak self] _, change in
-                guard let angle = change.newValue else { return }
-                Task { @MainActor in frontLayer.connection?.videoRotationAngle = angle }
-            }
-        )
-
-        // Observe capture angle changes
-        rotationObservers.append(
-            backRC.observe(\.videoRotationAngleForHorizonLevelCapture, options: .new) { [weak self] _, change in
-                guard let self, let angle = change.newValue else { return }
-                Task {
-                    await self.setRotationAngle(on: self.backVideoOutput, angle: angle)
-                    // Also update recorder for proper composition
-                    if let frontAngle = await self.frontRotationCoordinator?.videoRotationAngleForHorizonLevelCapture {
-                        await self.dualRecorder?.setRotationAngles(back: angle, front: frontAngle)
-                    }
+                Task { @MainActor in 
+                    backLayer.connection?.videoRotationAngle = angle 
                 }
             }
         )
         rotationObservers.append(
-            frontRC.observe(\.videoRotationAngleForHorizonLevelCapture, options: .new) { [weak self] _, change in
-                guard let self, let angle = change.newValue else { return }
+            frontRC.observe(\.videoRotationAngleForHorizonLevelPreview, options: .new) { _, change in
+                guard let angle = change.newValue else { return }
+                Task { @MainActor in 
+                    frontLayer.connection?.videoRotationAngle = angle 
+                }
+            }
+        )
+
+        // Observe capture angle changes - store weak references to avoid Sendable issues
+        weak var weakBackOutput = backVideoOutput
+        weak var weakFrontOutput = frontVideoOutput
+        weak var weakRecorder = dualRecorder
+        weak var weakBackRC = backRC
+        weak var weakFrontRC = frontRC
+        
+        rotationObservers.append(
+            backRC.observe(\.videoRotationAngleForHorizonLevelCapture, options: .new) { _, change in
+                guard let angle = change.newValue,
+                      let backOutput = weakBackOutput,
+                      let frontRC = weakFrontRC,
+                      let recorder = weakRecorder else { return }
                 Task {
-                    await self.setRotationAngle(on: self.frontVideoOutput, angle: angle)
+                    await self.setRotationAngle(on: backOutput, angle: angle)
                     // Also update recorder for proper composition
-                    if let backAngle = await self.backRotationCoordinator?.videoRotationAngleForHorizonLevelCapture {
-                        await self.dualRecorder?.setRotationAngles(back: backAngle, front: angle)
-                    }
+                    let frontAngle = await frontRC.videoRotationAngleForHorizonLevelCapture
+                    await recorder.setRotationAngles(back: angle, front: frontAngle)
+                }
+            }
+        )
+        rotationObservers.append(
+            frontRC.observe(\.videoRotationAngleForHorizonLevelCapture, options: .new) { _, change in
+                guard let angle = change.newValue,
+                      let frontOutput = weakFrontOutput,
+                      let backRC = weakBackRC,
+                      let recorder = weakRecorder else { return }
+                Task {
+                    await self.setRotationAngle(on: frontOutput, angle: angle)
+                    // Also update recorder for proper composition
+                    let backAngle = await backRC.videoRotationAngleForHorizonLevelCapture
+                    await recorder.setRotationAngles(back: backAngle, front: angle)
                 }
             }
         )
