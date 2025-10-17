@@ -69,6 +69,10 @@ final class CameraModel: Camera {
     private(set) var isCenterStageSupported = false
     private(set) var isCenterStageEnabled = false
 
+    /// Cinematic video support (iOS 26+)
+    private(set) var isCinematicVideoSupported = false
+    private(set) var isCinematicVideoEnabled = false
+
     /// The AVCaptureSession instance for preview connections.
     var captureSession: AVCaptureSession {
         captureService.captureSession
@@ -350,6 +354,15 @@ final class CameraModel: Camera {
         isCenterStageEnabled = await captureService.isCenterStageEnabled
     }
 
+    /// Toggle Cinematic Video mode on/off (iOS 26+)
+    func toggleCinematicVideo() async {
+        let newValue = !isCinematicVideoEnabled
+        await captureService.setCinematicVideoEnabled(newValue)
+        // Update local state
+        isCinematicVideoEnabled = await captureService.isCinematicVideoEnabled
+        isCinematicVideoSupported = await captureService.isCinematicVideoSupported
+    }
+
     private func observeState() {
         // Cancel any existing observation tasks before creating new ones
         observationTasks.forEach { $0.cancel() }
@@ -436,6 +449,24 @@ final class CameraModel: Camera {
                     for await isEnabled in await self.captureService.$isCenterStageEnabled.values {
                         await MainActor.run {
                             self.isCenterStageEnabled = isEnabled
+                        }
+                    }
+                }
+
+                // Cinematic video supported observation
+                group.addTask {
+                    for await isSupported in await self.captureService.$isCinematicVideoSupported.values {
+                        await MainActor.run {
+                            self.isCinematicVideoSupported = isSupported
+                        }
+                    }
+                }
+
+                // Cinematic video enabled observation
+                group.addTask {
+                    for await isEnabled in await self.captureService.$isCinematicVideoEnabled.values {
+                        await MainActor.run {
+                            self.isCinematicVideoEnabled = isEnabled
                         }
                     }
                 }

@@ -69,7 +69,10 @@ final class PhotoCapture: OutputService {
         /// Set the largest dimensions that the photo output supports.
         /// `CaptureService` automatically updates the photo output's `maxPhotoDimensions`
         /// when the capture pipeline changes.
-        photoSettings.maxPhotoDimensions = photoOutput.maxPhotoDimensions
+        /// NOTE: In multi-cam mode, photo output may not be connected, so check for zero.
+        if photoOutput.maxPhotoDimensions != .zero {
+            photoSettings.maxPhotoDimensions = photoOutput.maxPhotoDimensions
+        }
         
         // Set the movie URL if the photo output supports Live Photo capture.
         photoSettings.livePhotoMovieFileURL = features.isLivePhotoEnabled ? URL.movieFileURL : nil
@@ -118,7 +121,11 @@ final class PhotoCapture: OutputService {
     ///
     func updateConfiguration(for device: AVCaptureDevice) {
         // Enable all supported features.
-        photoOutput.maxPhotoDimensions = device.activeFormat.supportedMaxPhotoDimensions.last ?? .zero
+        // Only set maxPhotoDimensions if the output is connected to the session
+        // (in multi-cam mode, photo output may not be connected)
+        if !photoOutput.connections.isEmpty {
+            photoOutput.maxPhotoDimensions = device.activeFormat.supportedMaxPhotoDimensions.last ?? .zero
+        }
         photoOutput.isLivePhotoCaptureEnabled = photoOutput.isLivePhotoCaptureSupported
         photoOutput.maxPhotoQualityPrioritization = .quality
         photoOutput.isResponsiveCaptureEnabled = photoOutput.isResponsiveCaptureSupported
@@ -190,6 +197,10 @@ private class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
             logger.debug("Error capturing deferred photo: \(error)")
             return
         }
+
+        // Signal that we're processing the deferred photo
+        activityContinuation.yield(.photoCapture(willCapture: false, isLivePhoto: isLivePhoto, isProcessing: true))
+
         // Capture the data for this photo.
         photoData = deferredPhotoProxy?.fileDataRepresentation()
         isProxyPhoto = true
@@ -223,7 +234,7 @@ private class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
         }
         
         /// Create a photo object to save to the `MediaLibrary`.
-        let photo = Photo(data: photoData, isProxy: isProxyPhoto, livePhotoMovieURL: livePhotoMovieURL)
+        let photo = Photo(data: photoData, isProxy: isProxyPhoto, livePhotoMovieURL: livePhotoMovieURL, backData: nil, frontData: nil)
         // Resume the continuation by returning the captured photo.
         continuation.resume(returning: photo)
     }

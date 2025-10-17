@@ -31,15 +31,49 @@ struct CameraUI<CameraModel: Camera>: PlatformView {
                 LiveBadge()
                     .opacity(camera.captureActivity.isLivePhoto ? 1.0 : 0.0)
             case .video:
-                // Show recording timer
-                if camera.captureActivity.isRecording {
+                // Show recording timer for both single-cam and multi-cam recording
+                // Using explicit animation to reduce redraws
+                if camera.captureActivity.isRecording || camera.isDualRecording {
                     RecordingTimeView(time: camera.captureActivity.currentTime)
                         .offset(y: isRegularSize ? 20 : 0)
+                        .id("recordingTimer")
                 }
             }
         }
+        .overlay(alignment: .topLeading) {
+            // Status badges showing active features
+            StatusBadges(camera: camera)
+                .padding(.top, isRegularSize ? 60 : 50)
+                .padding(.leading, 16)
+        }
+        .overlay(alignment: .topTrailing) {
+            // Settings button
+            SettingsButton()
+                .padding(.top, isRegularSize ? 60 : 50)
+                .padding(.trailing, 16)
+        }
         .overlay {
             StatusOverlayView(status: camera.status)
+        }
+        .overlay {
+            // Deferred photo processing indicator
+            if case .photoCapture(_, _, let isProcessing) = camera.captureActivity, isProcessing {
+                VStack {
+                    Spacer()
+                    HStack {
+                        ProgressView()
+                            .tint(.white)
+                        Text("Processing photo...")
+                            .font(.caption)
+                            .foregroundStyle(.white)
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial.opacity(0.8))
+                    .clipShape(Capsule())
+                    .glassEffect()
+                    Spacer()
+                }
+            }
         }
     }
     
