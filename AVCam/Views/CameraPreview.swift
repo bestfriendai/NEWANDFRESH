@@ -38,11 +38,20 @@ struct CameraPreview: UIViewRepresentable {
     #if targetEnvironment(simulator)
             // The capture APIs require running on a real device. If running
             // in Simulator, display a static image to represent the video feed.
-            let imageView = UIImageView(frame: UIScreen.main.bounds)
+            // Note: Using .zero frame initially; autoresizing will handle layout
+            let imageView = UIImageView(frame: .zero)
             imageView.image = UIImage(named: "video_mode")
             imageView.contentMode = .scaleAspectFill
             imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             addSubview(imageView)
+    #endif
+        }
+
+        override func layoutSubviews() {
+            super.layoutSubviews()
+    #if targetEnvironment(simulator)
+            // Update image view frame to match bounds
+            subviews.first?.frame = bounds
     #endif
         }
         
@@ -55,15 +64,22 @@ struct CameraPreview: UIViewRepresentable {
             AVCaptureVideoPreviewLayer.self
         }
         
-        var previewLayer: AVCaptureVideoPreviewLayer {
-            layer as! AVCaptureVideoPreviewLayer
+        var previewLayer: AVCaptureVideoPreviewLayer? {
+            layer as? AVCaptureVideoPreviewLayer
         }
         
         nonisolated func setSession(_ session: AVCaptureSession) {
             // Connects the session with the preview layer, which allows the layer
             // to provide a live view of the captured content.
             Task { @MainActor in
-                previewLayer.session = session
+                guard let layer = previewLayer else {
+                    print("Warning: Preview layer not available")
+                    return
+                }
+                layer.session = session
+
+                // Notify that a real preview layer has been attached so rotation coordinator can bind to it
+                NotificationCenter.default.post(name: .previewLayerAttached, object: layer)
             }
         }
     }
@@ -98,4 +114,8 @@ struct DefaultPreviewSource: PreviewSource {
     func connect(to target: PreviewTarget) {
         target.setSession(session)
     }
+}
+
+extension Notification.Name {
+    static let previewLayerAttached = Notification.Name("PreviewLayerAttachedNotification")
 }

@@ -1,0 +1,610 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -scheme AVCam -destination "platform=iOS Simulator,name=iPhone 16 Pro,OS=latest" clean build
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:iOS Simulator, arch:arm64, id:2FCAEF35-73EE-482D-A1E0-EFF15A412925, OS:26.0, name:iPhone 16 Pro }
+{ platform:iOS Simulator, arch:x86_64, id:2FCAEF35-73EE-482D-A1E0-EFF15A412925, OS:26.0, name:iPhone 16 Pro }
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+** CLEAN SUCCEEDED **
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:iOS Simulator, arch:arm64, id:2FCAEF35-73EE-482D-A1E0-EFF15A412925, OS:26.0, name:iPhone 16 Pro }
+{ platform:iOS Simulator, arch:x86_64, id:2FCAEF35-73EE-482D-A1E0-EFF15A412925, OS:26.0, name:iPhone 16 Pro }
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (3 targets)
+    Target 'AVCam' in project 'AVCam'
+        ➜ Explicit dependency on target 'AVCamCaptureExtension' in project 'AVCam'
+        ➜ Explicit dependency on target 'AVCamControlCenterExtension' in project 'AVCam'
+    Target 'AVCamControlCenterExtension' in project 'AVCam' (no dependencies)
+    Target 'AVCamCaptureExtension' in project 'AVCam' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Preview Content/Preview Assets.xcassets /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: ecfbafeacc11b7d0d4ed5afb45c86591
+Build description path: /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/XCBuildData/ecfbafeacc11b7d0d4ed5afb45c86591.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.0-23A337-3885c01c3e6b6a337905948deab2002e26257891a6c027eb51374368541b8346.sdkstatcache
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk -o /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.0-23A337-3885c01c3e6b6a337905948deab2002e26257891a6c027eb51374368541b8346.sdkstatcache
+
+CreateBuildDirectory /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam.xcodeproj
+    builtin-create-build-directory /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products
+
+CreateBuildDirectory /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam.xcodeproj
+    builtin-create-build-directory /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex
+
+CreateBuildDirectory /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam.xcodeproj
+    builtin-create-build-directory /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+CreateBuildDirectory /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam.xcodeproj
+    builtin-create-build-directory /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator
+
+CreateBuildDirectory /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/ExplicitPrecompiledModules
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam.xcodeproj
+    builtin-create-build-directory /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+CreateBuildDirectory /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam.xcodeproj
+    builtin-create-build-directory /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam-61ef4275e951884daf017127bb6222bd-VFS-iphonesimulator/all-product-headers.yaml
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam.xcodeproj
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam-61ef4275e951884daf017127bb6222bd-VFS-iphonesimulator/all-product-headers.yaml
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension.hmap (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension.hmap
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension-own-target-headers.hmap (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension-own-target-headers.hmap
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension-all-non-framework-target-headers.hmap (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension-all-non-framework-target-headers.hmap
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension.DependencyMetadataFileList (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension.DependencyStaticMetadataFileList (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension-generated-files.hmap (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension-generated-files.hmap
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension-DebugEntryPoint-normal-arm64.txt (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension-DebugEntryPoint-normal-arm64.txt
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/DerivedSources/Entitlements-Simulated.plist (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/DerivedSources/Entitlements-Simulated.plist
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension-project-headers.hmap (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension-project-headers.hmap
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension-all-target-headers.hmap (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension-all-target-headers.hmap
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/Objects-normal/arm64/AVCamControlCenterExtension_const_extract_protocols.json (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/Objects-normal/arm64/AVCamControlCenterExtension_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/Objects-normal/arm64/AVCamControlCenterExtension.LinkFileList (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/Objects-normal/arm64/AVCamControlCenterExtension.LinkFileList
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/Objects-normal/arm64/AVCamControlCenterExtension-OutputFileMap.json (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/Objects-normal/arm64/AVCamControlCenterExtension-OutputFileMap.json
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/Objects-normal/arm64/AVCamControlCenterExtension.SwiftFileList (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/Objects-normal/arm64/AVCamControlCenterExtension.SwiftFileList
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/Objects-normal/arm64/AVCamControlCenterExtension.SwiftConstValuesFileList (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/Objects-normal/arm64/AVCamControlCenterExtension.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension-DebugDylibPath-normal-arm64.txt (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension-DebugDylibPath-normal-arm64.txt
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension-DebugDylibInstallName-normal-arm64.txt (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension-DebugDylibInstallName-normal-arm64.txt
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension.DependencyStaticMetadataFileList (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension.hmap (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension.hmap
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/DerivedSources/Entitlements-Simulated.plist (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/DerivedSources/Entitlements-Simulated.plist
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/AVCamCaptureExtension.LinkFileList (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/AVCamCaptureExtension.LinkFileList
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/AVCamCaptureExtension-OutputFileMap.json (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/AVCamCaptureExtension-OutputFileMap.json
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/AVCamCaptureExtension.SwiftConstValuesFileList (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/AVCamCaptureExtension.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/AVCamCaptureExtension.SwiftFileList (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/AVCamCaptureExtension.SwiftFileList
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/AVCamCaptureExtension_const_extract_protocols.json (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/AVCamCaptureExtension_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension.DependencyMetadataFileList (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-project-headers.hmap (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-project-headers.hmap
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-own-target-headers.hmap (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-own-target-headers.hmap
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-generated-files.hmap (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-generated-files.hmap
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-all-target-headers.hmap (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-all-target-headers.hmap
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-all-non-framework-target-headers.hmap (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-all-non-framework-target-headers.hmap
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-DebugEntryPoint-normal-arm64.txt (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-DebugEntryPoint-normal-arm64.txt
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-DebugDylibPath-normal-arm64.txt (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-DebugDylibPath-normal-arm64.txt
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-DebugDylibInstallName-normal-arm64.txt (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-DebugDylibInstallName-normal-arm64.txt
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/empty-AVCam.plist (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/empty-AVCam.plist
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/Objects-normal/arm64/AVCam_const_extract_protocols.json (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/Objects-normal/arm64/AVCam_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/Objects-normal/arm64/AVCam.SwiftFileList (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/Objects-normal/arm64/AVCam.SwiftFileList
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/Objects-normal/arm64/AVCam.SwiftConstValuesFileList (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/Objects-normal/arm64/AVCam.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/Objects-normal/arm64/AVCam.LinkFileList (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/Objects-normal/arm64/AVCam.LinkFileList
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/Objects-normal/arm64/AVCam-OutputFileMap.json (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/Objects-normal/arm64/AVCam-OutputFileMap.json
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam.hmap (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam.hmap
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/DerivedSources/Entitlements-Simulated.plist (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/DerivedSources/Entitlements-Simulated.plist
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam.DependencyStaticMetadataFileList (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam.DependencyMetadataFileList (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam-project-headers.hmap (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam-project-headers.hmap
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam-own-target-headers.hmap (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam-own-target-headers.hmap
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam-generated-files.hmap (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam-generated-files.hmap
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam-all-target-headers.hmap (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam-all-target-headers.hmap
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam-all-non-framework-target-headers.hmap (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam-all-non-framework-target-headers.hmap
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam-DebugDylibPath-normal-arm64.txt (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam-DebugDylibPath-normal-arm64.txt
+
+WriteAuxiliaryFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam-DebugDylibInstallName-normal-arm64.txt (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    write-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCam.build/AVCam-DebugDylibInstallName-normal-arm64.txt
+
+MkDir /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCamControlCenterExtension.appex (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    /bin/mkdir -p /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCamControlCenterExtension.appex
+
+MkDir /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCamCaptureExtension.appex (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    /bin/mkdir -p /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCamCaptureExtension.appex
+
+MkDir /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCam.app/PlugIns (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    /bin/mkdir -p /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCam.app/PlugIns
+
+MkDir /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCam.app/Extensions (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    /bin/mkdir -p /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCam.app/Extensions
+
+MkDir /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCam.app (in target 'AVCam' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    /bin/mkdir -p /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCam.app
+
+ProcessProductPackaging "" /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension.appex-Simulated.xcent (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+    Entitlements:
+    
+    {
+    "application-identifier" = "Y4NZ65U5X7.com.example.apple-samplecode.AVCamY4NZ65U5X7.AVCamControlCenterExtension";
+}
+    
+    builtin-productPackagingUtility -entitlements -format xml -o /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension.appex-Simulated.xcent
+
+ProcessProductPackaging "" /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension.appex-Simulated.xcent (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+    Entitlements:
+    
+    {
+    "application-identifier" = "Y4NZ65U5X7.com.example.apple-samplecode.AVCamY4NZ65U5X7.AVCamCaptureExtension";
+}
+    
+    builtin-productPackagingUtility -entitlements -format xml -o /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension.appex-Simulated.xcent
+
+ProcessProductPackagingDER /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension.appex-Simulated.xcent /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension.appex-Simulated.xcent.der (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    /usr/bin/derq query -f xml -i /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension.appex-Simulated.xcent -o /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension.appex-Simulated.xcent.der --raw
+
+ProcessProductPackagingDER /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension.appex-Simulated.xcent /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension.appex-Simulated.xcent.der (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    /usr/bin/derq query -f xml -i /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension.appex-Simulated.xcent -o /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension.appex-Simulated.xcent.der --raw
+
+Ld /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCamControlCenterExtension.appex/__preview.dylib normal (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios26.0-simulator -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk -O0 -L/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator -F/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator -install_name @rpath/AVCamControlCenterExtension.debug.dylib -dead_strip -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/Objects-normal/arm64/AVCamControlCenterExtension_dependency_info.dat -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __entitlements -Xlinker /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension.appex-Simulated.xcent -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __ents_der -Xlinker /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/AVCamControlCenterExtension.appex-Simulated.xcent.der -Xlinker -no_adhoc_codesign -o /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCamControlCenterExtension.appex/__preview.dylib
+
+GenerateAssetSymbols /Users/iamabillionaire/Downloads/FreshAndSlow/AVCamControlCenterExtension/Assets.xcassets (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    /Applications/Xcode.app/Contents/Developer/usr/bin/actool /Users/iamabillionaire/Downloads/FreshAndSlow/AVCamControlCenterExtension/Assets.xcassets --compile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCamControlCenterExtension.appex --output-format human-readable-text --notices --warnings --export-dependency-info /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/assetcatalog_dependencies --output-partial-info-plist /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/assetcatalog_generated_info.plist --accent-color AccentColor --widget-background-color WidgetBackground --compress-pngs --enable-on-demand-resources NO --standalone-icon-behavior all --development-region en --target-device iphone --target-device ipad --minimum-deployment-target 26.0 --platform iphonesimulator --bundle-identifier com.example.apple-samplecode.AVCamY4NZ65U5X7.AVCamControlCenterExtension --generate-swift-asset-symbols /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/DerivedSources/GeneratedAssetSymbols.swift --generate-objc-asset-symbols /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/DerivedSources/GeneratedAssetSymbols.h --generate-asset-symbol-index /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+/* com.apple.actool.compilation-results */
+/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/DerivedSources/GeneratedAssetSymbols.h
+/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/DerivedSources/GeneratedAssetSymbols.swift
+
+
+MkDir /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/assetcatalog_output/thinned (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    /bin/mkdir -p /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/assetcatalog_output/thinned
+
+MkDir /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/assetcatalog_output/unthinned (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    /bin/mkdir -p /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/assetcatalog_output/unthinned
+
+CompileAssetCatalogVariant thinned /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCamControlCenterExtension.appex /Users/iamabillionaire/Downloads/FreshAndSlow/AVCamControlCenterExtension/Assets.xcassets (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    /Applications/Xcode.app/Contents/Developer/usr/bin/actool /Users/iamabillionaire/Downloads/FreshAndSlow/AVCamControlCenterExtension/Assets.xcassets --compile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/assetcatalog_output/thinned --output-format human-readable-text --notices --warnings --export-dependency-info /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/assetcatalog_dependencies_thinned --output-partial-info-plist /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/assetcatalog_generated_info.plist_thinned --accent-color AccentColor --widget-background-color WidgetBackground --compress-pngs --enable-on-demand-resources NO --standalone-icon-behavior all --filter-for-thinning-device-configuration iPhone17,1 --filter-for-device-os-version 26.0 --development-region en --target-device iphone --target-device ipad --minimum-deployment-target 26.0 --platform iphonesimulator
+/* com.apple.actool.compilation-results */
+/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/assetcatalog_generated_info.plist_thinned
+
+
+Ld /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCamCaptureExtension.appex/__preview.dylib normal (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios26.0-simulator -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk -O0 -L/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator -F/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator -install_name @rpath/AVCamCaptureExtension.debug.dylib -dead_strip -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/AVCamCaptureExtension_dependency_info.dat -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __entitlements -Xlinker /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension.appex-Simulated.xcent -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __ents_der -Xlinker /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension.appex-Simulated.xcent.der -Xlinker -no_adhoc_codesign -o /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCamCaptureExtension.appex/__preview.dylib
+
+LinkAssetCatalog /Users/iamabillionaire/Downloads/FreshAndSlow/AVCamControlCenterExtension/Assets.xcassets (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    builtin-linkAssetCatalog --thinned /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/assetcatalog_output/thinned --thinned-dependencies /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/assetcatalog_dependencies_thinned --thinned-info-plist-content /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/assetcatalog_generated_info.plist_thinned --unthinned /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/assetcatalog_output/unthinned --unthinned-dependencies /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/assetcatalog_dependencies_unthinned --unthinned-info-plist-content /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/assetcatalog_generated_info.plist_unthinned --output /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCamControlCenterExtension.appex --plist-output /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/assetcatalog_generated_info.plist
+
+ProcessInfoPlistFile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCamControlCenterExtension.appex/Info.plist /Users/iamabillionaire/Downloads/FreshAndSlow/AVCamControlCenterExtension/Info.plist (in target 'AVCamControlCenterExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    builtin-infoPlistUtility /Users/iamabillionaire/Downloads/FreshAndSlow/AVCamControlCenterExtension/Info.plist -producttype com.apple.product-type.app-extension -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamControlCenterExtension.build/assetcatalog_generated_info.plist -o /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/AVCamControlCenterExtension.appex/Info.plist
+
+SwiftDriver AVCamCaptureExtension normal arm64 com.apple.xcode.tools.swift.compiler (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name AVCamCaptureExtension -Onone -enforce-exclusivity\=checked @/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/AVCamCaptureExtension.SwiftFileList -DDEBUG -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk -target arm64-apple-ios26.0-simulator -g -module-cache-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -application-extension -enable-testing -index-store-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator -F /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64 -c -j16 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.0-23A337-3885c01c3e6b6a337905948deab2002e26257891a6c027eb51374368541b8346.sdkstatcache -output-file-map /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/AVCamCaptureExtension-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/AVCamCaptureExtension.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/AVCamCaptureExtension_const_extract_protocols.json -Xcc -iquote -Xcc /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-generated-files.hmap -Xcc -I/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-own-target-headers.hmap -Xcc -I/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-all-target-headers.hmap -Xcc -iquote -Xcc /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-project-headers.hmap -Xcc -I/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/DerivedSources-normal/arm64 -Xcc -I/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/DerivedSources/arm64 -Xcc -I/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/AVCamCaptureExtension-Swift.h -working-directory /Users/iamabillionaire/Downloads/FreshAndSlow -experimental-emit-module-separately -disable-cmo
+
+SwiftCompile normal arm64 Compiling\ LiveBadge.swift,\ MovieCapture.swift,\ Camera.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Overlays/LiveBadge.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/MovieCapture.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Model/Camera.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Overlays/LiveBadge.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/MovieCapture.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Model/Camera.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 Compiling\ CameraPreview.swift,\ CameraState.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/CameraPreview.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Model/CameraState.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/CameraPreview.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Model/CameraState.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 Compiling\ FoundationExtensions.swift,\ PhotoCapture.swift,\ PreviewCameraModel.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Support/FoundationExtensions.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/PhotoCapture.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Preview\ Content/PreviewCameraModel.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Support/FoundationExtensions.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/PhotoCapture.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Preview\ Content/PreviewCameraModel.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 Compiling\ CameraModel.swift,\ ThumbnailButton.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/CameraModel.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Toolbars/MainToolbar/ThumbnailButton.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/CameraModel.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Toolbars/MainToolbar/ThumbnailButton.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 Compiling\ CameraUI.swift,\ AVCamCaptureExtension.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/CameraUI.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCamCaptureExtension/AVCamCaptureExtension.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/CameraUI.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCamCaptureExtension/AVCamCaptureExtension.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 Compiling\ PreviewContainer.swift,\ CaptureService.swift,\ RecordingTimeView.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/PreviewContainer.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/CaptureService.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Overlays/RecordingTimeView.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/PreviewContainer.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/CaptureService.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Overlays/RecordingTimeView.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 Compiling\ DualMovieRecorder.swift,\ DualCameraPreview.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DualMovieRecorder.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/DualCameraPreview.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+Failed frontend command:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -frontend -c /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/PreviewContainer.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/CaptureService.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Overlays/RecordingTimeView.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Overlays/LiveBadge.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/MovieCapture.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Model/Camera.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Support/FoundationExtensions.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/PhotoCapture.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Preview\ Content/PreviewCameraModel.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/CameraPreview.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Model/CameraState.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Toolbars/FeatureToolbar/FeatureToolbar.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Model/DataTypes.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Toolbars/MainToolbar/MainToolbar.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/CameraView.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/CameraUI.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCamCaptureExtension/AVCamCaptureExtension.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Support/CaptureExtensions.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DeviceLookup.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/CameraModel.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Toolbars/MainToolbar/ThumbnailButton.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Toolbars/MainToolbar/SwitchCameraButton.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Model/MediaLibrary.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Support/ViewExtensions.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Controls/CaptureModeView.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/SPCObserver.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Toolbars/MainToolbar/CaptureButton.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Overlays/StatusOverlayView.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Model/Intent/AVCamCaptureIntent.swift -primary-file /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DualMovieRecorder.swift -primary-file /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/DualCameraPreview.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/DualCameraPreviewView.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Overlays/MultiCamBadge.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Overlays/MultiCamErrorView.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Overlays/PerformanceOverlay.swift -emit-dependencies-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/DualMovieRecorder.d -emit-const-values-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/DualMovieRecorder.swiftconstvalues -emit-reference-dependencies-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/DualMovieRecorder.swiftdeps -serialize-diagnostics-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/DualMovieRecorder.dia -emit-dependencies-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/DualCameraPreview.d -emit-const-values-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/DualCameraPreview.swiftconstvalues -emit-reference-dependencies-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/DualCameraPreview.swiftdeps -serialize-diagnostics-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/DualCameraPreview.dia -emit-localized-strings -emit-localized-strings-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64 -target arm64-apple-ios26.0-simulator -disable-cross-import-overlay-search -swift-module-cross-import AVKit /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/AVKit.framework/Modules/AVKit.swiftcrossimport/SwiftUI.swiftoverlay -swift-module-cross-import AVKit /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk/System/Library/Frameworks/AVKit.framework/Modules/AVKit.swiftcrossimport/SwiftUI.swiftoverlay -swift-module-cross-import AppIntents /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/AppIntents.framework/Modules/AppIntents.swiftcrossimport/SwiftUI.swiftoverlay -swift-module-cross-import AppIntents /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/AppIntents.framework/Modules/AppIntents.swiftcrossimport/UIKit.swiftoverlay -swift-module-cross-import AppIntents /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk/System/Library/Frameworks/AppIntents.framework/Modules/AppIntents.swiftcrossimport/SwiftUI.swiftoverlay -swift-module-cross-import AppIntents /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk/System/Library/Frameworks/AppIntents.framework/Modules/AppIntents.swiftcrossimport/UIKit.swiftoverlay -swift-module-cross-import PhotosUI /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/PhotosUI.framework/Modules/PhotosUI.swiftcrossimport/SwiftUI.swiftoverlay -swift-module-cross-import PhotosUI /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/PhotosUI.framework/Modules/PhotosUI.swiftcrossimport/WidgetKit.swiftoverlay -swift-module-cross-import PhotosUI /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk/System/Library/Frameworks/PhotosUI.framework/Modules/PhotosUI.swiftcrossimport/SwiftUI.swiftoverlay -swift-module-cross-import PhotosUI /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk/System/Library/Frameworks/PhotosUI.framework/Modules/PhotosUI.swiftcrossimport/WidgetKit.swiftoverlay -swift-module-cross-import RelevanceKit /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/RelevanceKit.framework/Modules/RelevanceKit.swiftcrossimport/MapKit.swiftoverlay -swift-module-cross-import RelevanceKit /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk/System/Library/Frameworks/RelevanceKit.framework/Modules/RelevanceKit.swiftcrossimport/MapKit.swiftoverlay -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libAppIntentsMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#AppIntentsMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libFoundationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#FoundationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libObservationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#ObservationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libPreviewsMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#PreviewsMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libSwiftMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#SwiftMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libSwiftUIMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#SwiftUIMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libTipKitMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#TipKitMacros -disable-implicit-swift-modules -Xcc -fno-implicit-modules -Xcc -fno-implicit-module-maps -explicit-swift-module-map-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/AVCamCaptureExtension-dependencies-1.json -Xllvm -aarch64-use-tbi -enable-objc-interop -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk -I /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator -F /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator -no-color-diagnostics -Xcc -fno-color-diagnostics -application-extension -enable-testing -g -debug-info-format\=dwarf -dwarf-version\=5 -module-cache-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -swift-version 5 -enforce-exclusivity\=checked -Onone -D DEBUG -D DEBUG -serialize-debugging-options -const-gather-protocols-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/AVCamCaptureExtension_const_extract_protocols.json -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/iamabillionaire/Downloads/FreshAndSlow -enable-anonymous-context-mangled-names -file-compilation-dir /Users/iamabillionaire/Downloads/FreshAndSlow -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -Xcc -ivfsstatcache -Xcc /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.0-23A337-3885c01c3e6b6a337905948deab2002e26257891a6c027eb51374368541b8346.sdkstatcache -Xcc -I/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/swift-overrides.hmap -Xcc -iquote -Xcc /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-generated-files.hmap -Xcc -I/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-own-target-headers.hmap -Xcc -I/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-all-target-headers.hmap -Xcc -iquote -Xcc /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/AVCamCaptureExtension-project-headers.hmap -Xcc -I/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/DerivedSources-normal/arm64 -Xcc -I/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/DerivedSources/arm64 -Xcc -I/Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/DerivedSources -Xcc -DDEBUG\=1 -no-auto-bridging-header-chaining -module-name AVCamCaptureExtension -frontend-parseable-output -disable-clang-spi -target-sdk-version 26.0 -target-sdk-name iphonesimulator26.0 -clang-target arm64-apple-ios26.0-simulator -in-process-plugin-server-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -o /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/DualMovieRecorder.o -o /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Build/Intermediates.noindex/AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/DualCameraPreview.o -index-unit-output-path /AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/DualMovieRecorder.o -index-unit-output-path /AVCam.build/Debug-iphonesimulator/AVCamCaptureExtension.build/Objects-normal/arm64/DualCameraPreview.o -index-store-path /Users/iamabillionaire/Library/Developer/Xcode/DerivedData/AVCam-aeeonxypuzvegoffjmbkbztytgyq/Index.noindex/DataStore -index-system-modules
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DualMovieRecorder.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+/Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DualMovieRecorder.swift:264:30: error: reference to property 'frameCount' in closure requires explicit use of 'self' to make capture semantics explicit
+           - Total frames: \(frameCount)
+                             ^
+/Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DualMovieRecorder.swift:264:30: note: reference 'self.' explicitly
+           - Total frames: \(frameCount)
+                             ^
+                             self.
+/Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DualMovieRecorder.swift:265:32: error: reference to property 'droppedFrameCount' in closure requires explicit use of 'self' to make capture semantics explicit
+           - Dropped frames: \(droppedFrameCount) (\(String(format: "%.1f%%", dropRate)))
+                               ^
+/Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DualMovieRecorder.swift:265:32: note: reference 'self.' explicitly
+           - Dropped frames: \(droppedFrameCount) (\(String(format: "%.1f%%", dropRate)))
+                               ^
+                               self.
+/Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DualMovieRecorder.swift:267:58: error: reference to property 'totalRenderTime' in closure requires explicit use of 'self' to make capture semantics explicit
+           - Total render time: \(String(format: "%.2f", totalRenderTime))s
+                                                         ^
+/Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DualMovieRecorder.swift:267:58: note: reference 'self.' explicitly
+           - Total render time: \(String(format: "%.2f", totalRenderTime))s
+                                                         ^
+                                                         self.
+/Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DualMovieRecorder.swift:268:31: error: reference to property 'audioSampleCount' in closure requires explicit use of 'self' to make capture semantics explicit
+           - Audio samples: \(audioSampleCount)
+                              ^
+/Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DualMovieRecorder.swift:268:31: note: reference 'self.' explicitly
+           - Audio samples: \(audioSampleCount)
+                              ^
+                              self.
+/Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DualMovieRecorder.swift:269:33: error: reference to property 'isUnderMemoryPressure' in closure requires explicit use of 'self' to make capture semantics explicit
+           - Memory pressure: \(isUnderMemoryPressure ? "YES" : "NO")
+                                ^
+/Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DualMovieRecorder.swift:269:33: note: reference 'self.' explicitly
+           - Memory pressure: \(isUnderMemoryPressure ? "YES" : "NO")
+                                ^
+                                self.
+/Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DualMovieRecorder.swift:386:20: warning: value 'backPixelBuffer' was defined but never used; consider replacing with boolean test
+            if let backPixelBuffer = CMSampleBufferGetImageBuffer(backBuffer) {
+               ~~~~^~~~~~~~~~~~~~~~~~
+                                                                              != nil
+/Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DualMovieRecorder.swift:394:20: warning: value 'frontPixelBuffer' was defined but never used; consider replacing with boolean test
+            if let frontPixelBuffer = CMSampleBufferGetImageBuffer(frontBuffer) {
+               ~~~~^~~~~~~~~~~~~~~~~~~
+                                                                                != nil
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/DualCameraPreview.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 Compiling\ DualCameraPreviewView.swift,\ MultiCamBadge.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/DualCameraPreviewView.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Overlays/MultiCamBadge.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/DualCameraPreviewView.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Overlays/MultiCamBadge.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 Compiling\ SwitchCameraButton.swift,\ MediaLibrary.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Toolbars/MainToolbar/SwitchCameraButton.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Model/MediaLibrary.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Toolbars/MainToolbar/SwitchCameraButton.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Model/MediaLibrary.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 Compiling\ MultiCamErrorView.swift,\ PerformanceOverlay.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Overlays/MultiCamErrorView.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Overlays/PerformanceOverlay.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Overlays/MultiCamErrorView.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Overlays/PerformanceOverlay.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 Compiling\ FeatureToolbar.swift,\ DataTypes.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Toolbars/FeatureToolbar/FeatureToolbar.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Model/DataTypes.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Toolbars/FeatureToolbar/FeatureToolbar.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Model/DataTypes.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+/Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Model/DataTypes.swift:183:40: warning: immutable value 'cost' was never used; consider replacing with '_' or removing it
+        case .hardwareCostExceeded(let cost):
+                                   ~~~~^~~~
+                                   _
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ AVCamCaptureExtension (in target 'AVCamCaptureExtension' from project 'AVCam')
+
+EmitSwiftModule normal arm64 (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 Compiling\ MainToolbar.swift,\ CameraView.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Toolbars/MainToolbar/MainToolbar.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/CameraView.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Toolbars/MainToolbar/MainToolbar.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/CameraView.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 Compiling\ StatusOverlayView.swift,\ AVCamCaptureIntent.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Overlays/StatusOverlayView.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Model/Intent/AVCamCaptureIntent.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Overlays/StatusOverlayView.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Model/Intent/AVCamCaptureIntent.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 Compiling\ CaptureExtensions.swift,\ DeviceLookup.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Support/CaptureExtensions.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DeviceLookup.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Support/CaptureExtensions.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DeviceLookup.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 Compiling\ ViewExtensions.swift,\ CaptureModeView.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Support/ViewExtensions.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Controls/CaptureModeView.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Support/ViewExtensions.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Controls/CaptureModeView.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+    cd /Users/iamabillionaire/Downloads/FreshAndSlow
+    
+
+SwiftCompile normal arm64 Compiling\ SPCObserver.swift,\ CaptureButton.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/SPCObserver.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/Toolbars/MainToolbar/CaptureButton.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+
+SwiftDriverJobDiscovery normal arm64 Compiling FeatureToolbar.swift, DataTypes.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+
+SwiftDriverJobDiscovery normal arm64 Compiling StatusOverlayView.swift, AVCamCaptureIntent.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+
+** BUILD FAILED **
+
+
+The following build commands failed:
+	SwiftCompile normal arm64 Compiling\ DualMovieRecorder.swift,\ DualCameraPreview.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DualMovieRecorder.swift /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Views/DualCameraPreview.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+	SwiftCompile normal arm64 /Users/iamabillionaire/Downloads/FreshAndSlow/AVCam/Capture/DualMovieRecorder.swift (in target 'AVCamCaptureExtension' from project 'AVCam')
+	Building project AVCam with scheme AVCam
+(3 failures)

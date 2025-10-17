@@ -22,7 +22,9 @@ struct SwitchCameraButton<CameraModel: Camera>: View {
         }
         .buttonStyle(DefaultButtonStyle(size: .large))
         .frame(width: largeButtonSize.width, height: largeButtonSize.height)
-        .disabled(camera.captureActivity.isRecording)
-        .allowsHitTesting(!camera.isSwitchingVideoDevices)
+        .glassEffect(.regular, in: .circle)
+        .disabled(camera.captureActivity.isRecording || camera.isMultiCamMode)
+        .allowsHitTesting(!camera.isSwitchingVideoDevices && !camera.isMultiCamMode)
+        .opacity(camera.isMultiCamMode ? 0.5 : 1.0)
     }
 }

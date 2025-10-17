@@ -178,14 +178,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		C47C99C72CA1C6BB00B5338B /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		C47C99C72CA1C6BB00B5338B /* Exceptions for "AVCamCaptureExtension" folder in "AVCamCaptureExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
 			target = C47C99B92CA1C6BB00B5338B /* AVCamCaptureExtension */;
 		};
-		C4C6E20E2CA1CF270081A8EA /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		C4C6E20E2CA1CF270081A8EA /* Exceptions for "AVCamControlCenterExtension" folder in "AVCamControlCenterExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -195,8 +195,30 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		C47C99BB2CA1C6BB00B5338B /* AVCamCaptureExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C47C99C72CA1C6BB00B5338B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AVCamCaptureExtension; sourceTree = "<group>"; };
-		C4C6E2002CA1CF250081A8EA /* AVCamControlCenterExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C4C6E20E2CA1CF270081A8EA /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AVCamControlCenterExtension; sourceTree = "<group>"; };
+		C47C99BB2CA1C6BB00B5338B /* AVCamCaptureExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C47C99C72CA1C6BB00B5338B /* Exceptions for "AVCamCaptureExtension" folder in "AVCamCaptureExtension" target */,
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = AVCamCaptureExtension;
+			sourceTree = "<group>";
+		};
+		C4C6E2002CA1CF250081A8EA /* AVCamControlCenterExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C4C6E20E2CA1CF270081A8EA /* Exceptions for "AVCamControlCenterExtension" folder in "AVCamControlCenterExtension" target */,
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = AVCamControlCenterExtension;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */

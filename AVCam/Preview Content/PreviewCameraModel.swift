@@ -22,9 +22,11 @@ class PreviewCameraModel: Camera {
     // Multi-camera properties
     private(set) var isMultiCamMode = false
     private(set) var isDualRecording = false
+    private(set) var isDualPreviewFailed = false
     var captureSession: AVCaptureSession = AVCaptureSession()
     var backVideoPort: AVCaptureInput.Port?
     var frontVideoPort: AVCaptureInput.Port?
+    var thermalPressureLevel: AVCaptureDevice.SystemPressureState.Level = .nominal
     
     struct PreviewSourceStub: PreviewSource {
         // Stubbed out for test purposes.
@@ -63,23 +65,23 @@ class PreviewCameraModel: Camera {
         }
     }
     
-    func switchVideoDevices() {
+    func switchVideoDevices() async {
         logger.debug("Device switching isn't implemented in PreviewCamera.")
     }
     
-    func capturePhoto() {
+    func capturePhoto() async {
         logger.debug("Photo capture isn't implemented in PreviewCamera.")
     }
     
-    func toggleRecording() {
+    func toggleRecording() async {
         logger.debug("Moving capture isn't implemented in PreviewCamera.")
     }
 
-    func startDualRecording() {
+    func startDualRecording() async {
         logger.debug("Dual recording isn't implemented in PreviewCamera.")
     }
 
-    func stopDualRecording() {
+    func stopDualRecording() async {
         logger.debug("Dual recording isn't implemented in PreviewCamera.")
     }
 
@@ -87,7 +89,7 @@ class PreviewCameraModel: Camera {
         logger.debug("Dual preview setup isn't implemented in PreviewCamera.")
     }
 
-    func focusAndExpose(at point: CGPoint) {
+    func focusAndExpose(at point: CGPoint) async {
         logger.debug("Focus and expose isn't implemented in PreviewCamera.")
     }
     

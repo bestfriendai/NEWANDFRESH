@@ -1447,7 +1447,15 @@ actor CaptureService {
 
     /// Enables or disables cinematic video capture (iOS 26+)
     /// Adds depth-of-field effects during video recording
+    /// Note: This feature is planned for iOS 26 but API may not be available yet
     func setCinematicVideoEnabled(_ isEnabled: Bool) async {
+        // Feature not yet available in current SDK
+        logger.info("Cinematic video feature planned for future iOS release")
+        isCinematicVideoSupported = false
+        isCinematicVideoEnabled = false
+
+        // Uncomment when iOS 26 SDK is available with this feature:
+        /*
         guard #available(iOS 26.0, *) else {
             logger.info("Cinematic video requires iOS 26.0 or later")
             isCinematicVideoSupported = false
@@ -1485,10 +1493,18 @@ actor CaptureService {
             logger.error("Failed to configure cinematic video: \(error.localizedDescription)")
             isCinematicVideoEnabled = false
         }
+        */
     }
 
     /// Checks if cinematic video is supported and updates the capability
+    /// Note: Feature not yet available in current SDK
     private func updateCinematicVideoCapability() {
+        // Feature not yet available
+        isCinematicVideoSupported = false
+        isCinematicVideoEnabled = false
+
+        // Uncomment when iOS 26 SDK is available with this feature:
+        /*
         if #available(iOS 26.0, *),
            let device = activeVideoInput?.device,
            device.isCinematicVideoCaptureSupported {
@@ -1497,6 +1513,7 @@ actor CaptureService {
             isCinematicVideoSupported = false
             isCinematicVideoEnabled = false
         }
+        */
     }
 
     // MARK: - Internal state management

@@ -14,6 +14,8 @@ struct MultiCamBadge: View {
         .padding(.horizontal, 8)
         .padding(.vertical, 4)
         .glassEffect(.regular, in: .capsule)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Dual camera mode active")
     }
 }
 

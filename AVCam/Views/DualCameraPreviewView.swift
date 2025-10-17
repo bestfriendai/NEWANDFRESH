@@ -9,6 +9,20 @@ import UIKit
 import AVFoundation
 
 /// Container view for dual camera preview layers in split-screen mode
+///
+/// **Design Note:** This implementation uses a 50/50 vertical split-screen layout
+/// rather than Picture-in-Picture (PiP). This design choice provides equal visual
+/// weight to both camera feeds and is well-suited for dual recording scenarios where
+/// both perspectives are equally important (e.g., reaction videos, interviews, etc.).
+///
+/// The split-screen approach offers:
+/// - Equal prominence for both camera feeds
+/// - No obscured content (unlike PiP overlay)
+/// - Clear visual separation between feeds
+/// - Simpler layout calculations and rotation handling
+///
+/// A PiP layout can be implemented by modifying the frame calculations in
+/// `layoutSubviews()` to position one preview layer as a smaller overlay in a corner.
 class DualCameraPreviewView: UIView {
 
     // MARK: - Properties
@@ -44,6 +58,16 @@ class DualCameraPreviewView: UIView {
         dividerLine.backgroundColor = UIColor.white.cgColor
 
         // Session will be set with manual connections in setupConnections()
+
+        // Configure accessibility
+        setupAccessibility()
+    }
+
+    private func setupAccessibility() {
+        self.isAccessibilityElement = true
+        self.accessibilityLabel = "Dual camera preview"
+        self.accessibilityHint = "Shows front and back camera feeds simultaneously in split-screen"
+        self.accessibilityTraits = .image
     }
 
     required init?(coder: NSCoder) {

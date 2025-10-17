@@ -28,8 +28,10 @@ struct RecordingTimeView: PlatformView {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, isRegularSize ? 8 : 6)
-        // Apply Liquid Glass effect (iOS 26 placeholder)
         .glassEffect(.regular, in: .capsule)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Recording time: \(time.formatted)")
+        .accessibilityAddTraits(.updatesFrequently)
     }
 }
 

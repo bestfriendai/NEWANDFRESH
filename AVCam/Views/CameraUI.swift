@@ -40,18 +40,6 @@ struct CameraUI<CameraModel: Camera>: PlatformView {
                 }
             }
         }
-        .overlay(alignment: .topLeading) {
-            // Status badges showing active features
-            StatusBadges(camera: camera)
-                .padding(.top, isRegularSize ? 60 : 50)
-                .padding(.leading, 16)
-        }
-        .overlay(alignment: .topTrailing) {
-            // Settings button
-            SettingsButton()
-                .padding(.top, isRegularSize ? 60 : 50)
-                .padding(.trailing, 16)
-        }
         .overlay {
             StatusOverlayView(status: camera.status)
         }

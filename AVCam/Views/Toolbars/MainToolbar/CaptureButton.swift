@@ -27,6 +27,12 @@ struct CaptureButton<CameraModel: Camera>: View {
                     isRecording = newValue
                 }
             }
+            .onChange(of: camera.isDualRecording) { _, newValue in
+                // Also monitor dual recording state for multi-cam mode
+                withAnimation(.easeInOut(duration: 0.25)) {
+                    isRecording = newValue
+                }
+            }
     }
     
     @ViewBuilder
@@ -90,7 +96,10 @@ private struct PhotoCaptureButton: View {
                     .fill(.white)
             }
             .buttonStyle(PhotoButtonStyle())
+            .accessibilityLabel("Capture photo")
+            .accessibilityHint("Takes a photo with the current camera")
         }
+        .glassEffect(.regular, in: .circle)
     }
     
     struct PhotoButtonStyle: ButtonStyle {
@@ -133,7 +142,11 @@ private struct MovieCaptureButton: View {
                 }
             }
             .buttonStyle(NoFadeButtonStyle())
+            .accessibilityLabel(isRecording ? "Stop recording" : "Start recording")
+            .accessibilityHint("Records video with the current camera")
+            .accessibilityAddTraits(isRecording ? [.isSelected] : [])
         }
+        .glassEffect(.regular, in: .circle)
     }
     
     struct NoFadeButtonStyle: ButtonStyle {
@@ -170,7 +183,11 @@ private struct DualCameraRecordButton: View {
                 }
             }
             .buttonStyle(NoFadeButtonStyle())
+            .accessibilityLabel(isDualRecording ? "Stop dual camera recording" : "Start dual camera recording")
+            .accessibilityHint("Records video from both front and back cameras simultaneously")
+            .accessibilityAddTraits(isDualRecording ? [.isSelected] : [])
         }
+        .glassEffect(.regular, in: .circle)
         .scaleEffect(isDualRecording ? 0.8 : 1.0)
         .animation(.easeInOut(duration: 0.2), value: isDualRecording)
     }

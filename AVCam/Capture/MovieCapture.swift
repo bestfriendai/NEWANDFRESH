@@ -38,7 +38,8 @@ final class MovieCapture: OutputService {
         guard !movieOutput.isRecording else { return }
         
         guard let connection = movieOutput.connection(with: .video) else {
-            fatalError("Configuration error. No video connection found.")
+            logger.error("Configuration error. No video connection found.")
+            return
         }
 
         // Configure connection for HEVC capture.
@@ -55,20 +56,47 @@ final class MovieCapture: OutputService {
         startMonitoringDuration()
         
         delegate = MovieCaptureDelegate()
-        movieOutput.startRecording(to: URL.movieFileURL, recordingDelegate: delegate!)
+        guard let delegate = delegate else {
+            logger.error("Failed to create recording delegate")
+            stopMonitoringDuration()
+            return
+        }
+        movieOutput.startRecording(to: URL.movieFileURL, recordingDelegate: delegate)
     }
     
     /// Stops movie recording.
     /// - Returns: A `Movie` object that represents the captured movie.
     func stopRecording() async throws -> Movie {
-        // Use a continuation to adapt the delegate-based capture API to an async interface.
-        return try await withCheckedThrowingContinuation { continuation in
-            // Set the continuation on the delegate to handle the capture result.
-            delegate?.continuation = continuation
-            
-            /// Stops recording, which causes the output to call the `MovieCaptureDelegate` object.
-            movieOutput.stopRecording()
-            stopMonitoringDuration()
+        // Use a continuation to adapt the delegate-based capture API to an async interface with timeout
+        return try await withThrowingTaskGroup(of: Movie.self) { group in
+            group.addTask { [delegate] in
+                try await withCheckedThrowingContinuation { continuation in
+                    // Set the continuation on the delegate to handle the capture result.
+                    delegate?.continuation = continuation
+
+                    /// Stops recording, which causes the output to call the `MovieCaptureDelegate` object.
+                    self.movieOutput.stopRecording()
+                    self.stopMonitoringDuration()
+                }
+            }
+
+            // Timeout task (10 seconds)
+            group.addTask {
+                try await Task.sleep(nanoseconds: 10_000_000_000)
+                throw MovieCaptureError.stopTimeout
+            }
+
+            // Return first result (either movie or timeout)
+            guard let result = try await group.next() else {
+                throw MovieCaptureError.stopTimeout
+            }
+
+            group.cancelAll()
+
+            // Clear delegate after recording completes (outside continuation)
+            self.delegate = nil
+
+            return result
         }
     }
     
@@ -84,7 +112,7 @@ final class MovieCapture: OutputService {
                 continuation?.resume(throwing: error)
             } else {
                 // Return a new movie object.
-                continuation?.resume(returning: Movie(url: outputFileURL))
+                continuation?.resume(returning: Movie(url: outputFileURL, backURL: nil, frontURL: nil))
             }
         }
     }
@@ -120,4 +148,10 @@ final class MovieCapture: OutputService {
     var capabilities: CaptureCapabilities {
         CaptureCapabilities(isHDRSupported: isHDRSupported)
     }
+}
+
+// MARK: - Errors
+enum MovieCaptureError: Error {
+    case stopTimeout
+    case recordingFailed
 }

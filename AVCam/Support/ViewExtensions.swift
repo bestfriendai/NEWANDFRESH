@@ -96,29 +96,59 @@ extension Image {
     }
 }
 
-// MARK: - Liquid Glass Effect (iOS 26 Placeholder)
+// MARK: - Glass Effect (iOS 18+ Material-Based)
 
-/// Placeholder for iOS 26 Liquid Glass effect
-/// TODO: Replace with actual .glassEffect() modifier when iOS 26 is released
-/// Reference: https://developer.apple.com/documentation/TechnologyOverviews/liquid-glass
 extension View {
-    /// Applies a glass-like visual effect to the view (iOS 26 Liquid Glass placeholder)
+    /// Applies a glass-like visual effect to the view using iOS 18+ Material effects
     ///
-    /// This is a temporary implementation using Material effects. When iOS 26 is released,
-    /// replace with: .glassEffect(.regular, in: shape)
+    /// This implementation uses the Material API available in iOS 18+ to create
+    /// a glass-like appearance with blur, transparency, and subtle borders.
     ///
     /// - Parameters:
-    ///   - variant: The glass effect variant (currently unused, for future API compatibility)
+    ///   - variant: The glass effect variant (regular, clear, or identity)
     ///   - shape: The shape to apply the effect within
     /// - Returns: A view with glass-like visual effects
     func glassEffect(_ variant: GlassEffectVariant = .regular, in shape: GlassEffectShape) -> some View {
-        self
-            .background(.ultraThinMaterial)
+        let material: Material = {
+            switch variant {
+            case .regular:
+                return .ultraThinMaterial
+            case .clear:
+                return .thin
+            case .identity:
+                return .regular
+            }
+        }()
+
+        let opacity: Double = {
+            switch variant {
+            case .regular:
+                return 0.8
+            case .clear:
+                return 0.6
+            case .identity:
+                return 1.0
+            }
+        }()
+
+        return self
+            .background(material.opacity(opacity))
             .clipShape(shapeForEffect(shape))
             .overlay(
                 shapeForEffect(shape)
-                    .stroke(Color.white.opacity(0.2), lineWidth: 0.5)
+                    .stroke(
+                        LinearGradient(
+                            colors: [
+                                Color.white.opacity(0.3),
+                                Color.white.opacity(0.1)
+                            ],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 1
+                    )
             )
+            .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 4)
     }
 
     private func shapeForEffect(_ shape: GlassEffectShape) -> AnyShape {
@@ -133,17 +163,20 @@ extension View {
     }
 }
 
-/// Glass effect shape variants (iOS 26 placeholder)
+/// Glass effect shape variants
 enum GlassEffectShape {
     case circle
     case capsule
     case rect(cornerRadius: CGFloat)
 }
 
-/// Glass effect variants (iOS 26 placeholder)
+/// Glass effect variants
 enum GlassEffectVariant {
+    /// Regular glass effect with standard blur and transparency
     case regular
+    /// Clear glass effect with less blur and more transparency
     case clear
+    /// Identity glass effect with minimal blur
     case identity
 }
 

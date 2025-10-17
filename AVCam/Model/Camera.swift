@@ -100,4 +100,25 @@ protocol Camera: AnyObject, SendableMetatype {
 
     /// Setup preview layer connections for dual camera mode.
     func setupDualPreviewConnections(backLayer: AVCaptureVideoPreviewLayer, frontLayer: AVCaptureVideoPreviewLayer) async
+
+    // Optional UI state exposures (default implementations provided)
+    var multiCamErrorMessage: String? { get }
+    var thermalLevel: String? { get }
+    var showMultiCamError: Bool { get }
+    func dismissMultiCamError()
+
+    // Center Stage support
+    var isCenterStageSupported: Bool { get }
+    var isCenterStageEnabled: Bool { get }
+    func toggleCenterStage() async
+}
+
+extension Camera {
+    var multiCamErrorMessage: String? { nil }
+    var thermalLevel: String? { nil }
+    var showMultiCamError: Bool { false }
+    func dismissMultiCamError() {}
+    var isCenterStageSupported: Bool { false }
+    var isCenterStageEnabled: Bool { false }
+    func toggleCenterStage() async {}
 }

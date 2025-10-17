@@ -256,17 +256,17 @@ actor DualMovieRecorder {
         await composedWriter.finishWriting()
 
         // Log detailed performance metrics
-        let avgRenderTime = frameCount > 0 ? (totalRenderTime / Double(frameCount)) * 1000 : 0
-        let dropRate = frameCount > 0 ? Double(droppedFrameCount) / Double(frameCount) * 100 : 0
+        let avgRenderTime = self.frameCount > 0 ? (self.totalRenderTime / Double(self.frameCount)) * 1000 : 0
+        let dropRate = self.frameCount > 0 ? Double(self.droppedFrameCount) / Double(self.frameCount) * 100 : 0
 
         logger.info("""
         📊 Recording Performance Metrics:
-           - Total frames: \(frameCount)
-           - Dropped frames: \(droppedFrameCount) (\(String(format: "%.1f%%", dropRate)))
+           - Total frames: \(self.frameCount)
+           - Dropped frames: \(self.droppedFrameCount) (\(String(format: "%.1f%%", dropRate)))
            - Avg render time: \(String(format: "%.2f", avgRenderTime))ms
-           - Total render time: \(String(format: "%.2f", totalRenderTime))s
-           - Audio samples: \(audioSampleCount)
-           - Memory pressure: \(isUnderMemoryPressure ? "YES" : "NO")
+           - Total render time: \(String(format: "%.2f", self.totalRenderTime))s
+           - Audio samples: \(self.audioSampleCount)
+           - Memory pressure: \(self.isUnderMemoryPressure ? "YES" : "NO")
         """)
 
         // Check status of all writers
@@ -383,7 +383,7 @@ actor DualMovieRecorder {
             }
 
             // Write back camera frame directly
-            if let backPixelBuffer = CMSampleBufferGetImageBuffer(backBuffer) {
+            if CMSampleBufferGetImageBuffer(backBuffer) != nil {
                 let success = backVideoInput.append(backBuffer)
                 if !success {
                     logger.error("Failed to append back camera frame")
@@ -391,7 +391,7 @@ actor DualMovieRecorder {
             }
 
             // Write front camera frame directly
-            if let frontPixelBuffer = CMSampleBufferGetImageBuffer(frontBuffer) {
+            if CMSampleBufferGetImageBuffer(frontBuffer) != nil {
                 let success = frontVideoInput.append(frontBuffer)
                 if !success {
                     logger.error("Failed to append front camera frame")

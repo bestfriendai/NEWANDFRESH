@@ -26,6 +26,7 @@ class SystemPreferredCameraObserver: NSObject {
     }
 
     deinit {
+        AVCaptureDevice.self.removeObserver(self, forKeyPath: systemPreferredKeyPath)
         continuation?.finish()
     }
     

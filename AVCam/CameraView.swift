@@ -20,6 +20,7 @@ struct CameraView<CameraModel: Camera>: PlatformView {
     // The direction a person swipes on the camera preview or mode selector.
     @State var swipeDirection = SwipeDirection.left
 
+
     var body: some View {
         ZStack {
             // A container view that manages the placement of the preview.
@@ -105,6 +106,29 @@ struct CameraView<CameraModel: Camera>: PlatformView {
                     }
                     .padding()
                     Spacer()
+                }
+            }
+
+            // Thermal warning overlay (serious/critical)
+            if let level = camera.thermalLevel, level == "serious" || level == "critical" {
+                VStack {
+                    HStack {
+                        Spacer()
+                        ThermalWarningView(level: level)
+                    }
+                    .padding()
+                    Spacer()
+                }
+            }
+
+            // Multi-cam unavailable overlay (dismissable)
+            if let message = camera.multiCamErrorMessage {
+                if camera.showMultiCamError {
+                    MultiCamErrorView(message: message) {
+                        // Dismiss overlay; app already fell back to single camera
+                        camera.dismissMultiCamError()
+                    }
+                    .transition(.opacity)
                 }
             }
 

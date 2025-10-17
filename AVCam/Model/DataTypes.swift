@@ -180,7 +180,7 @@ enum CameraError: LocalizedError {
             return "Failed to Switch Camera"
         case .multiCamNotSupported:
             return "Dual Camera Not Supported"
-        case .hardwareCostExceeded(let cost):
+        case .hardwareCostExceeded:
             return "Multi-Camera Requires Too Much Processing Power"
         case .connectionFailed:
             return "Failed to Connect Camera"

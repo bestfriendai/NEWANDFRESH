@@ -21,6 +21,14 @@ struct MainToolbar<CameraModel: Camera>: PlatformView {
 			ThumbnailButton(camera: camera)
                 // Hide the thumbnail button when a person interacts with capture controls.
                 .opacity(camera.prefersMinimizedUI ? 0 : 1)
+
+            // Center Stage toggle (only visible in dual camera mode)
+            // TODO: Add CenterStageButton to Xcode project targets
+            // if camera.isMultiCamMode && camera.isCenterStageSupported {
+            //     CenterStageButton(camera: camera)
+            //         .opacity(camera.prefersMinimizedUI ? 0 : 1)
+            // }
+
             Spacer()
             CaptureButton(camera: camera)
             Spacer()
