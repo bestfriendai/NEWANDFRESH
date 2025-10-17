@@ -50,31 +50,59 @@ actor MediaLibrary {
     // MARK: - Saving media
     
     /// Saves a photo to the Photos library.
+    /// For dual camera photos, saves all 3 photos: composed, back, and front.
     func save(photo: Photo) async throws {
         let location = try await currentLocation
+
+        // Save composed photo (always present)
         try await performChange {
             let creationRequest = PHAssetCreationRequest.forAsset()
-            
+
             // Save primary photo.
             let options = PHAssetResourceCreationOptions()
             // Specify the appropriate resource type for the photo.
             creationRequest.addResource(with: photo.isProxy ? .photoProxy : .photo, data: photo.data, options: options)
             creationRequest.location = location
-            
+
             // Save Live Photo data.
             if let url = photo.livePhotoMovieURL {
                 let livePhotoOptions = PHAssetResourceCreationOptions()
                 livePhotoOptions.shouldMoveFile = true
                 creationRequest.addResource(with: .pairedVideo, fileURL: url, options: livePhotoOptions)
             }
-            
+
             return creationRequest.placeholderForCreatedAsset
+        }
+
+        // Save back camera photo if present (dual camera mode)
+        if let backData = photo.backData {
+            try await performChange {
+                let creationRequest = PHAssetCreationRequest.forAsset()
+                let options = PHAssetResourceCreationOptions()
+                creationRequest.addResource(with: .photo, data: backData, options: options)
+                creationRequest.location = location
+                return creationRequest.placeholderForCreatedAsset
+            }
+        }
+
+        // Save front camera photo if present (dual camera mode)
+        if let frontData = photo.frontData {
+            try await performChange {
+                let creationRequest = PHAssetCreationRequest.forAsset()
+                let options = PHAssetResourceCreationOptions()
+                creationRequest.addResource(with: .photo, data: frontData, options: options)
+                creationRequest.location = location
+                return creationRequest.placeholderForCreatedAsset
+            }
         }
     }
     
     /// Saves a movie to the Photos library.
+    /// For dual camera recordings, saves all 3 videos: composed, back, and front.
     func save(movie: Movie) async throws {
         let location = try await currentLocation
+
+        // Save composed video (always present)
         try await performChange {
             let options = PHAssetResourceCreationOptions()
             options.shouldMoveFile = true
@@ -82,6 +110,30 @@ actor MediaLibrary {
             creationRequest.addResource(with: .video, fileURL: movie.url, options: options)
             creationRequest.location = location
             return creationRequest.placeholderForCreatedAsset
+        }
+
+        // Save back camera video if present (dual camera mode)
+        if let backURL = movie.backURL {
+            try await performChange {
+                let options = PHAssetResourceCreationOptions()
+                options.shouldMoveFile = true
+                let creationRequest = PHAssetCreationRequest.forAsset()
+                creationRequest.addResource(with: .video, fileURL: backURL, options: options)
+                creationRequest.location = location
+                return creationRequest.placeholderForCreatedAsset
+            }
+        }
+
+        // Save front camera video if present (dual camera mode)
+        if let frontURL = movie.frontURL {
+            try await performChange {
+                let options = PHAssetResourceCreationOptions()
+                options.shouldMoveFile = true
+                let creationRequest = PHAssetCreationRequest.forAsset()
+                creationRequest.addResource(with: .video, fileURL: frontURL, options: options)
+                creationRequest.location = location
+                return creationRequest.placeholderForCreatedAsset
+            }
         }
     }
     
